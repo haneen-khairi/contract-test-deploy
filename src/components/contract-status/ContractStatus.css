@@ -1,0 +1,4 @@
+nav .left-side .chakra-select__wrapper {
+    width: fit-content !important;
+    text-transform: capitalize !important;
+}

@@ -1,0 +1,7 @@
+.chakra-select__wrapper:first-child {
+    width: 30% !important;
+}
+
+.chakra-select__wrapper:last-child {
+    width: 50% !important;
+}

@@ -1,0 +1,15 @@
+[data-letters]:before {
+    content: attr(data-letters);
+    display: inline-block;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    line-height: 1.3em;
+    text-align: center;
+    border-radius: 50%;
+    background: plum;
+    vertical-align: middle;
+    margin-right: 4px;
+    color: white;
+}
+

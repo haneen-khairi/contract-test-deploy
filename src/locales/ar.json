@@ -1,0 +1,148 @@
+{
+    "Auth": {
+        "SideTabs": {
+            "One": {
+                "title": "Welcome to CaDas!",
+                "description": "A sophisticated system leveraging artificial intelligence algorithms to automatically extract written text from contracts, streamlining the process and enhancing efficiency."
+            },
+            "Two": {
+                "title": "Upload Contacts",
+                "description": "A sophisticated system leveraging artificial intelligence algorithms to automatically extract written text from contracts, streamlining the process and enhancing efficiency."
+            },
+            "Three": {
+                "title": "Stay Organized",
+                "description": "A sophisticated system leveraging artificial intelligence algorithms to automatically extract written text from contracts, streamlining the process and enhancing efficiency."
+            }
+        }
+    },
+    "AuthHeader": {
+        "currentLanguage": "عربي",
+        "Other1": {
+            "display": "English",
+            "route": "en"
+        }
+    },
+    "Footer": {
+        "brandLogoAlt": "brand-logo",
+        "slogan": "Simplify registration, authentication, and contract handling with CaDas; your one-stop solution for seamless contract lifecycle management.",
+        "subscribeText": "Subscribe",
+        "emailPlaceholder": "Email Address",
+        "subscribeCta": "your one-stop solution for seamless contract lifecycle management.",
+        "rightsReserved": "© 2021 Landify UI Kit. All rights reserved"
+    },
+    "Home": {
+        "Hero": {
+            "title": "Streamline Your Contract Management Process",
+            "text1": "Simplify registration, authentication, and contract handling with CaDas;",
+            "text2": "your one-stop solution for seamless contract lifecycle management."
+        },
+        "Features": {
+            "title": "Personalized features",
+            "description": "Experience CaDas: Simplify registrations, manage contracts seamlessly, collaborate easily, and gain valuable insights, all supported by dedicated assistance.",
+            "FeaturesList": {
+                "Secure": {
+                    "name": "Secure Registration & Authentication",
+                    "description": "Sign up easily and securely, and manage your account and sub-users with advanced authentication systems."
+                },
+                "Intuitive": {
+                    "name": "Intuitive Contract Management",
+                    "description": "Create, edit, view, and manage your documents effortlessly, tailored to your role and permissions."
+                },
+                "Collaboration": {
+                    "name": "E-Sign & Collaboration",
+                    "description": "E-sign capabilities and collaborative tools, making contract approval and management a breeze."
+                },
+                "Insights": {
+                    "name": "Insights & Analytics",
+                    "description": "Track contract statuses, upcoming renewals, and performance metrics to make informed decisions."
+                }
+            }
+        },
+        "Blog": {
+            "title": "Our Blog",
+            "sideText": "Read More",
+            "description": "Stay Informed with the CaDas Blog. Dive into the latest insights, tips, and trends in contract management",
+            "blogInsights": {
+                "One": {
+                    "name": "5 Essential Strategies for Effective Contract Lifecycle Management",
+                    "description": "Discover the top strategies to optimize your contract lifecycle management. This blog post dives into best practices that can save time, reduce risk, and enhance operational efficiency. Learn how to streamline processes from initiation to renewal for seamless contract management."
+                },
+                "Two": {
+                    "name": "The Future of Contract Management",
+                    "description": "Discover the top strategies to optimize your contract lifecycle management. This blog post dives into best practices that can save time, reduce risk, and enhance operational efficiency. Learn how to streamline processes from initiation to renewal for seamless contract management."
+                },
+                "Three": {
+                    "name": "Maximizing Collaboration in Contract Management with CaDas",
+                    "description": "Discover the top strategies to optimize your contract lifecycle management. This blog post dives into best practices that can save time, reduce risk, and enhance operational efficiency. Learn how to streamline processes from initiation to renewal for seamless contract management."
+                }
+            }
+        },
+        "Testimonial": {
+            "title": "Testimonials",
+            "description": "Hear from our satisfied users how CaDas has revolutionized their contract management, simplifying processes, enhancing collaboration, and providing unparalleled support. Discover real-world success stories.",
+            "testimonialsList": {
+                "One": {
+                    "name": "Adeeb Shaban",
+                    "subTitle": "Vice President, Company",
+                    "description": "CaDas has been a game-changer for our contract management workflow. It's intuitive, efficient, and their support team is always there when we need them"
+                },
+                "Two": {
+                    "name": "Adeeb Shaban",
+                    "subTitle": "Vice President, Company",
+                    "description": "CaDas has been a game-changer for our contract management workflow. It's intuitive, efficient, and their support team is always there when we need them"
+                },
+                "Three": {
+                    "name": "Adeeb Shaban",
+                    "subTitle": "Vice President, Company",
+                    "description": "CaDas has been a game-changer for our contract management workflow. It's intuitive, efficient, and their support team is always there when we need them"
+                }
+            }
+        },
+        "Promo": {
+            "title": "Manage Contracts in The Right Way",
+            "description": "Simplify registration, authentication, and contract handling with CaDas; your one-stop solution for seamless contract lifecycle management."
+        }
+    },
+    "Pricing": {
+        "FreeTier": {
+            "tierName": "Free Tier",
+            "price": "$0",
+            "shortDescription": "Description of the tier list will go here, copy should be concise and impactful.",
+            "feature1": "5 contracts",
+            "feature2": "Support",
+            "feature3": "Collaboration",
+            "feature4": "Insights",
+            "buttonText": "Try For Free"
+        },
+        "SMETier": {
+            "tierName": "SME Tier",
+            "price": "$1699",
+            "shortDescription": "Description of the tier list will go here, copy should be concise and impactful.",
+            "feature1": "50 Contracts",
+            "feature2": "24/7 Support",
+            "feature3": "Collaboration",
+            "feature4": "Insights",
+            "buttonText": "Subscribe Now"
+        },
+        "Enterprise": {
+            "tierName": "Enterprise",
+            "price": "$9999",
+            "shortDescription": "Description of the tier list will go here, copy should be concise and impactful.",
+            "feature1": "400 Contracts",
+            "feature2": "24/7 Support",
+            "feature3": "Collaboration",
+            "feature4": "Insights",
+            "buttonText": "Subscribe Now"
+        },
+        "Custom": {
+            "tierName": "Custom",
+            "price": "Contact Us",
+            "shortDescription": "Description of the tier list will go here, copy should be concise and impactful.",
+            "feature1": "400 Contracts",
+            "feature2": "24/7 Support",
+            "feature3": "Collaboration",
+            "feature4": "Insights",
+            "buttonText": "Contact Us"
+        }
+    }
+}

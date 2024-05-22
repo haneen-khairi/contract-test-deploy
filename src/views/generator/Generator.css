@@ -1,0 +1,10 @@
+nav {
+    padding: 23px 40px;
+    height: 80px;
+
+    @media screen and (max-width: 992px) {
+        padding: 0;
+        height: 60px;
+    }
+}
+
