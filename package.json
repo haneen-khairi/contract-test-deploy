@@ -30,6 +30,7 @@
         "@types/slick-carousel": "^1.6.40",
         "axios": "^1.6.8",
         "ckeditor5-custom-build": "file:ckeditor-5",
+        "date-fns": "^3.6.0",
         "file": "^0.2.2",
         "framer-motion": "^11.0.15",
         "next": "14.1.3",
@@ -52,6 +53,7 @@
         "zod": "^3.22.4"
     },
     "devDependencies": {
+        "@types/date-fns": "^2.6.0",
         "@types/node": "^20",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",

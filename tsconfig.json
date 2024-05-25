@@ -26,7 +26,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "babel.config.mjs"
+    "babel.config.mjs",
+    "src",
+    "node_modules/@types"
   ],
   "exclude": ["node_modules"]
 }
