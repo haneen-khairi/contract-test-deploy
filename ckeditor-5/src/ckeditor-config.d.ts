@@ -6,5 +6,8 @@ declare module '@ckeditor/ckeditor5-core' {
         image?: {
             toolbar?: string[];
         };
+        table?: {
+            contentToolbar?: string[];
+        };
     }
 }

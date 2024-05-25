@@ -1,3 +1,8 @@
+/**
+ * @license Copyright (c) 2014-2024, CKSource Holding sp. z o.o. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
 import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
 
 import { Alignment } from '@ckeditor/ckeditor5-alignment';
@@ -14,12 +19,12 @@ import { Heading } from '@ckeditor/ckeditor5-heading';
 import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
 import { HtmlEmbed } from '@ckeditor/ckeditor5-html-embed';
 import {
-    Image,
-    ImageCaption,
-    ImageStyle,
-    ImageToolbar,
-    ImageUpload,
-    PictureEditing
+	Image,
+	ImageCaption,
+	ImageStyle,
+	ImageToolbar,
+	ImageUpload,
+	PictureEditing
 } from '@ckeditor/ckeditor5-image';
 import { Indent } from '@ckeditor/ckeditor5-indent';
 import { Link } from '@ckeditor/ckeditor5-link';
@@ -31,83 +36,108 @@ import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
 import { Undo } from '@ckeditor/ckeditor5-undo';
 
+// You can read more about extending the build with additional plugins in the "Installing plugins" guide.
+// See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
+
 class Editor extends ClassicEditor {
+	public static override builtinPlugins = [
+		Alignment,
+		Autoformat,
+		BlockQuote,
+		Bold,
+		CKBox,
+		CloudServices,
+		Code,
+		CodeBlock,
+		Essentials,
+		FindAndReplace,
+		Heading,
+		HorizontalLine,
+		HtmlEmbed,
+		Image,
+		ImageCaption,
+		ImageStyle,
+		ImageToolbar,
+		ImageUpload,
+		Indent,
+		Italic,
+		Link,
+		List,
+		ListProperties,
+		MediaEmbed,
+		Paragraph,
+		PasteFromOffice,
+		PictureEditing,
+		Strikethrough,
+		Table,
+		TableToolbar,
+		TextTransformation,
+		TodoList,
+		Underline,
+		Undo
+	];
 
-    public static override builtinPlugins = [
-        Alignment,
-        Autoformat,
-        BlockQuote,
-        Bold,
-        CKBox,
-        CloudServices,
-        Code,
-        CodeBlock,
-        Essentials,
-        FindAndReplace,
-        Heading,
-        HorizontalLine,
-        HtmlEmbed,
-        Image,
-        ImageCaption,
-        ImageStyle,
-        ImageToolbar,
-        ImageUpload,
-        Indent,
-        Italic,
-        Link,
-        List,
-        ListProperties,
-        MediaEmbed,
-        Paragraph,
-        PasteFromOffice,
-        PictureEditing,
-        Strikethrough,
-        Table,
-        TableToolbar,
-        TextTransformation,
-        TodoList,
-        Underline,
-        Undo
-    ];
-
-    public static override defaultConfig: EditorConfig = {
-        toolbar: {
-            items: [
-                'undo',
-                'redo',
-                'heading',
-                'alignment',
-                'bold',
-                'italic',
-                'underline',
-                'strikethrough',
-                'code',
-                'bulletedList',
-                'numberedList',
-                'link',
-                'imageUpload',
-                'blockQuote',
-				'heading', '|',
-				'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
-				'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
-				'undo', 'redo'
-            ]
-        },
-        language: 'en', 
+	public static override defaultConfig: EditorConfig = {
+		toolbar: {
+			items: [
+				'undo',
+				'redo',
+				'heading',
+				'alignment',
+				'bold',
+				'italic',
+				'underline',
+				'strikethrough',
+				'code',
+				'bulletedList',
+				'numberedList',
+				'link',
+				'imageUpload',
+				'blockQuote'
+			]
+		},
+		language: 'en',
 		image: {
 			toolbar: [
 				'imageTextAlternative',
-				'toggleImageCaption'
+				'toggleImageCaption',
+				'imageStyle:inline',
+				'imageStyle:block',
+				'imageStyle:side'
 			]
 		},
-        table: {
-            contentToolbar: [
-                'tableColumn',
-                'tableRow',
-                'mergeTableCells'
-            ]
-        }
-    };
+		table: {
+			contentToolbar: [
+				'tableColumn',
+				'tableRow',
+				'mergeTableCells'
+			]
+		}
+	};
+	
 }
-
+const editorConfiguration = {
+    toolbar: {
+        items: [
+            'heading', '|',
+            'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+            'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
+            'undo', 'redo'
+        ]
+    },
+    language: 'en',
+    image: {
+        toolbar: [
+            'imageTextAlternative',
+            'toggleImageCaption'
+        ]
+    },
+    table: {
+        contentToolbar: [
+            'tableColumn',
+            'tableRow',
+            'mergeTableCells'
+        ]
+    }
+};
 export default Editor;
