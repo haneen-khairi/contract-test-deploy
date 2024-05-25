@@ -40,6 +40,7 @@ import { Undo } from '@ckeditor/ckeditor5-undo';
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
 
 class Editor extends ClassicEditor {
+	
 	public static override builtinPlugins = [
 		Alignment,
 		Autoformat,
@@ -97,14 +98,8 @@ class Editor extends ClassicEditor {
 			]
 		},
 		language: 'en',
-		image: {
-			toolbar: [
-				'imageTextAlternative',
-				'toggleImageCaption',
-				'imageStyle:inline',
-				'imageStyle:block',
-				'imageStyle:side'
-			]
+		image?: {
+			toolbar: string[],
 		},
 		table: {
 			contentToolbar: [
@@ -114,6 +109,7 @@ class Editor extends ClassicEditor {
 			]
 		}
 	};
-}
-
+	
+} 
+   
 export default Editor;
