@@ -86,19 +86,20 @@ class Editor extends ClassicEditor {
                 'numberedList',
                 'link',
                 'imageUpload',
-                'blockQuote'
+                'blockQuote',
+				'heading', '|',
+				'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+				'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
+				'undo', 'redo'
             ]
         },
-        language: 'en',
-        image: {
-            toolbar: [
-                'imageTextAlternative',
-                'toggleImageCaption',
-                'imageStyle:inline',
-                'imageStyle:block',
-                'imageStyle:side'
-            ]
-        },
+        language: 'en', 
+		image: {
+			toolbar: [
+				'imageTextAlternative',
+				'toggleImageCaption'
+			]
+		},
         table: {
             contentToolbar: [
                 'tableColumn',
