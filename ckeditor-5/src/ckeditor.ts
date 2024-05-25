@@ -14,12 +14,12 @@ import { Heading } from '@ckeditor/ckeditor5-heading';
 import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
 import { HtmlEmbed } from '@ckeditor/ckeditor5-html-embed';
 import {
-	Image,
-	ImageCaption,
-	ImageStyle,
-	ImageToolbar,
-	ImageUpload,
-	PictureEditing
+    Image,
+    ImageCaption,
+    ImageStyle,
+    ImageToolbar,
+    ImageUpload,
+    PictureEditing
 } from '@ckeditor/ckeditor5-image';
 import { Indent } from '@ckeditor/ckeditor5-indent';
 import { Link } from '@ckeditor/ckeditor5-link';
@@ -32,82 +32,81 @@ import { TextTransformation } from '@ckeditor/ckeditor5-typing';
 import { Undo } from '@ckeditor/ckeditor5-undo';
 
 class Editor extends ClassicEditor {
-	
-	public static override builtinPlugins = [
-		Alignment,
-		Autoformat,
-		BlockQuote,
-		Bold,
-		CKBox,
-		CloudServices,
-		Code,
-		CodeBlock,
-		Essentials,
-		FindAndReplace,
-		Heading,
-		HorizontalLine,
-		HtmlEmbed,
-		Image,
-		ImageCaption,
-		ImageStyle,
-		ImageToolbar,
-		ImageUpload,
-		Indent,
-		Italic,
-		Link,
-		List,
-		ListProperties,
-		MediaEmbed,
-		Paragraph,
-		PasteFromOffice,
-		PictureEditing,
-		Strikethrough,
-		Table,
-		TableToolbar,
-		TextTransformation,
-		TodoList,
-		Underline,
-		Undo
-	];
 
-	public static override defaultConfig: EditorConfig = {
-		toolbar: {
-			items: [
-				'undo',
-				'redo',
-				'heading',
-				'alignment',
-				'bold',
-				'italic',
-				'underline',
-				'strikethrough',
-				'code',
-				'bulletedList',
-				'numberedList',
-				'link',
-				'imageUpload',
-				'blockQuote'
-			]
-		},
-		language: 'en',
-		image: {
-			toolbar: [
-				'imageTextAlternative',
-				'toggleImageCaption',
-				'imageStyle:inline',
-				'imageStyle:block',
-				'imageStyle:side'
-			]
-		},
-		table: {
-			contentToolbar: [
-				'tableColumn',
-				'tableRow',
-				'mergeTableCells'
-			]
-		}
-	};
-	
-} 
-   
+    public static override builtinPlugins = [
+        Alignment,
+        Autoformat,
+        BlockQuote,
+        Bold,
+        CKBox,
+        CloudServices,
+        Code,
+        CodeBlock,
+        Essentials,
+        FindAndReplace,
+        Heading,
+        HorizontalLine,
+        HtmlEmbed,
+        Image,
+        ImageCaption,
+        ImageStyle,
+        ImageToolbar,
+        ImageUpload,
+        Indent,
+        Italic,
+        Link,
+        List,
+        ListProperties,
+        MediaEmbed,
+        Paragraph,
+        PasteFromOffice,
+        PictureEditing,
+        Strikethrough,
+        Table,
+        TableToolbar,
+        TextTransformation,
+        TodoList,
+        Underline,
+        Undo
+    ];
+
+    public static override defaultConfig: EditorConfig = {
+        toolbar: {
+            items: [
+                'undo',
+                'redo',
+                'heading',
+                'alignment',
+                'bold',
+                'italic',
+                'underline',
+                'strikethrough',
+                'code',
+                'bulletedList',
+                'numberedList',
+                'link',
+                'imageUpload',
+                'blockQuote'
+            ]
+        },
+        language: 'en',
+        image: {
+            toolbar: [
+                'imageTextAlternative',
+                'toggleImageCaption',
+                'imageStyle:inline',
+                'imageStyle:block',
+                'imageStyle:side'
+            ]
+        },
+        table: {
+            contentToolbar: [
+                'tableColumn',
+                'tableRow',
+                'mergeTableCells'
+            ]
+        }
+    };
+}
+
 export default Editor;
