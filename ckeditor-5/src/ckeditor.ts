@@ -116,28 +116,5 @@ class Editor extends ClassicEditor {
 	};
 	
 }
-const editorConfiguration = {
-    toolbar: {
-        items: [
-            'heading', '|',
-            'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
-            'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
-            'undo', 'redo'
-        ]
-    },
-    language: 'en',
-    image: {
-        toolbar: [
-            'imageTextAlternative',
-            'toggleImageCaption'
-        ]
-    },
-    table: {
-        contentToolbar: [
-            'tableColumn',
-            'tableRow',
-            'mergeTableCells'
-        ]
-    }
-};
+
 export default Editor;
