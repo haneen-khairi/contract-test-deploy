@@ -106,7 +106,7 @@ export default function Tags({ contractID }: { contractID: string }) {
         );
 
         const updatedTags = tags.map((tag) => {
-            if (response.id === tag?.id) {
+            if (response.id === tag.id) {
                 return response;
             }
 

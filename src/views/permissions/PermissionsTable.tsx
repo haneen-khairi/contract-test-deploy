@@ -23,7 +23,7 @@ interface Message {
 }
 
 interface Props {
-  permissions: string[];
+  permissions: Message[];
 }
 
 export default function PermissionsTable({ permissions }: Props) {
