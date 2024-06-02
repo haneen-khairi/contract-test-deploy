@@ -80,14 +80,14 @@ export default function PricingView({
           <PricingDetails key={index} {...item} />
         )
       )} */}
-      {plans.map(
+      {plans.length ? plans?.map(
         (
           plan: Plan,
           index: Key | null | undefined
         ) => (
           <PricingDetails onGetCheckoutId={setCheckoutId}  key={index} plan={plan} />
         )
-      )}
+      ): ""}
       {checkoutId && <>
         {/* <iframe
             src={`https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${checkoutId}`}

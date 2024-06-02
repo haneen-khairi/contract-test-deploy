@@ -78,10 +78,7 @@ export async function getContractsEndSoon(accessToken: string) {
     return response;
 }
 
-export async function getInvoices(
-    searchParams: any,
-    accessToken: string
-){
+export async function getInvoices(searchParams: any, accessToken: string) {
     const params = new URLSearchParams(searchParams);
 
     const url =
@@ -97,7 +94,6 @@ export async function getInvoices(
             "Content-Type": "application/json",
         },
     });
-
 
     if (res.status !== 200) {
         console.log("error", res.status);

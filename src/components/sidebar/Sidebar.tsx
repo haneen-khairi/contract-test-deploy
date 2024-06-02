@@ -81,6 +81,7 @@ export default function Sidebar() {
                         aria-label="Collapse sidebar"
                         variant="ghost"
                         size="md"
+                        marginLeft="auto"
                         minW={isCollapsed ? "unset" : "40px"}
                     />
                 </Flex>

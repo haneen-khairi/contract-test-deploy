@@ -25,7 +25,6 @@ import { editSummarySchema } from "@/schemas";
 import { updateSummary } from "@/actions/summary";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 export default function Summary({
     summaryData,
@@ -34,7 +33,6 @@ export default function Summary({
     summaryData: string;
     contractID: string;
 }) {
-    const router = useRouter()
     const [summary, setSummary] = useState(summaryData);
     const toast = useToast();
     const { data: session } = useSession();
@@ -47,6 +45,8 @@ export default function Summary({
 
     useEffect(() => {
         setSummary(summaryData);
+
+
     }, [summaryData]);
 
     const {
@@ -124,14 +124,7 @@ export default function Summary({
                 <Heading as="h2" size="sm" fontWeight={500} lineHeight={"18px"}>
                     Summary
                 </Heading>
-                {/* <IconButton
-                    size="sm"
-                    icon={<EditIcon />}
-                    aria-label={"Edit summary"}
-                    onClick={() => router.push(`/en/dashboard/contracts/editor?id=${contractID}`)}
-                    bg="white"
-                /> */}
-                   <IconButton
+                <IconButton
                     size="sm"
                     icon={<EditIcon />}
                     aria-label={"Edit summary"}
@@ -146,7 +139,7 @@ export default function Summary({
                 lineHeight={"20px"}
                 textAlign={"left"}
             >
-                {summary}
+                {summary?.trim() ? summary : "No Data"}
             </Text>
             <Modal onClose={onCloseModal} isOpen={isOpenModal} isCentered>
                 <ModalOverlay />

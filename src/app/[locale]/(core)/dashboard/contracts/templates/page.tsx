@@ -53,7 +53,7 @@ export default function Page() {
                     <div className="contract__card--cover">
                         <p className="contract__card--cover-type">A4</p>
                         <span className="contract__card--cover-text">Contract</span>
-                        <Flex as={Link} href={`/en/dashboard/contracts/templates/details?id=${contract.id}`} gap={'8px'} alignItems={'center'} justifyContent={'center'} className="contract__card--cover-btn">
+                        <Flex as={Link} href={`/en/${contract.id}`} gap={'8px'} alignItems={'center'} justifyContent={'center'} className="contract__card--cover-btn">
                             <p>View this Template</p>
                             <ArrowRight />
                         </Flex>

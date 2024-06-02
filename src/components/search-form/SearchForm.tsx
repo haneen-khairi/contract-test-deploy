@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, FormControl, Input, Select, Stack } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -9,6 +9,7 @@ import * as z from "zod";
 import { useSession } from "next-auth/react";
 import { getContractStatus, getContractTypes } from "@/actions/contracts";
 import { ContractType, StateItem } from "@/types/types";
+import CustomDatePicker from "../common/CustomDatePicker/CustomDatePicker";
 
 // Validation schema using Zod
 const schema = z.object({
@@ -34,7 +35,7 @@ export default function SearchBar() {
     status: searchParams.get("status") || "",
     type: searchParams.get("type") || "",
   };
-  const { handleSubmit, register, reset, getValues } = useForm({
+  const { handleSubmit, register, reset, getValues, setValue } = useForm({
     defaultValues,
   });
 
@@ -118,32 +119,7 @@ export default function SearchBar() {
             borderRadius={"8px"}
           />
         </FormControl>
-        <FormControl flexGrow="1" w={"220px"}>
-          <Input
-            type="date"
-            {...register("start_date")}
-            bgColor="white"
-            borderColor="#c4cfe5"
-            placeholder="Start Date"
-            borderRadius={"8px"}
-          />
-          {/* <DateInput
-            name={"start_date"}
-            register={register}
-            currentVal={`${getValues("start_date")}`}
-            placeholder={"Start Date"}
-          /> */}
-        </FormControl>
-        <FormControl flexGrow="1" w={"220px"}>
-          <Input
-            type="date"
-            {...register("end_date")}
-            bgColor="white"
-            borderColor="#c4cfe5"
-            placeholder="End Date"
-            borderRadius={"8px"}
-          />
-        </FormControl>
+        <CustomDatePicker register={register} getValues={getValues} setValue={setValue} />
         <FormControl flexGrow="1" w={"220px"} display={"flex"}>
           <Select
             {...register("type")}

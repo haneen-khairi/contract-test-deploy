@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import "./Relations.css";
 import { useSession } from "next-auth/react";
-import { getRelations, postRelations } from "@/actions/relations";
+import { getRelations, postRelations, putRelations } from "@/actions/relations";
 import { getRelationOptions } from "@/actions/relationOptions";
 import { getContractOptions } from "@/actions/contractOptions";
 import NewRelation from "./NewRelation";
@@ -69,29 +69,58 @@ export default function Relations({ contractID }: { contractID: string }) {
     };
 
     const postNewRelation = async (data: any) => {
-        const response = await postRelations(
-            contractID,
-            session?.tokens?.access || "",
-            data
-        );
+        try {
+            const response = await postRelations(
+                contractID,
+                session?.tokens?.access || "",
+                data
+            );
 
-        setRelations([...relations, response]);
+            setRelations((prevRelations) => [...prevRelations, response]);
+        } catch (error) {
+            console.error("Error posting new relation:", error);
+        }
     };
 
-    const updateRelation = async (original: any, newData: any) => {
+    const updateRelation = async (
+        id: any,
+        original: any,
+        newData: any,
+        value: any
+    ) => {
+        const response = await putRelations(
+            id,
+            contractID,
+            session?.tokens?.access || "",
+            newData
+        );
         const updatedRelation = relations.map((relation: Relation) => {
-            if (relation.id === original) {
-                return newData;
+            if (relation.id === id) {
+                if ("type" in response) {
+                    return { ...relation, ...response };
+                } else if ("related_to" in response) {
+                    return {
+                        ...relation,
+                        related_to: {
+                            id: relation.related_to.id,
+                            name: value,
+                        },
+                    };
+                }
             }
 
-            return newData;
+            return relation;
         });
         setRelations(updatedRelation);
     };
 
     useEffect(() => {
         fetchRelations();
-    }, []);
+
+        if (session?.tokens?.access) {
+            fetchRelations();
+        }
+    }, [contractID, session?.tokens?.access || ""]);
 
     return (
         <Box
@@ -133,9 +162,9 @@ export default function Relations({ contractID }: { contractID: string }) {
             </header>
             <Divider orientation="horizontal" marginBottom={"1rem"} />
             <Flex>
-                <UnorderedList style={{ marginLeft: "0", width: "100%" }}>
-                    {relations?.length > 0 &&
-                        relations?.map((relation: Relation, index: number) => (
+                {relations?.length > 0 ? (
+                    <UnorderedList style={{ marginLeft: "0", width: "100%" }}>
+                        {relations.map((relation: Relation) => (
                             <ListItem
                                 key={relation.id}
                                 style={{
@@ -165,7 +194,10 @@ export default function Relations({ contractID }: { contractID: string }) {
                                 </Box>
                             </ListItem>
                         ))}
-                </UnorderedList>
+                    </UnorderedList>
+                ) : (
+                    <Text>No Data</Text>
+                )}
             </Flex>
         </Box>
     );

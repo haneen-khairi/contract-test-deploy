@@ -60,6 +60,7 @@ export interface ContractPermissionsResponse {
 export interface UserPermissionsResponse {
     name: string;
     contracts: Instance[];
+    can_add_contract: boolean
     error?: string;
 };
 

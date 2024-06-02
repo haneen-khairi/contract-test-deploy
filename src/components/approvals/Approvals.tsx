@@ -183,8 +183,13 @@ export default function Approvals({ contractID }: { contractID: string }) {
     };
 
     useEffect(() => {
-        fetchApprovals();
-    }, [fetchApprovals]);
+        if (session?.tokens?.access) {
+            fetchApprovals();
+        }
+    }, [contractID, session?.tokens?.access || ""]);
+    // useEffect(() => {
+    //     fetchApprovals();
+    // }, [fetchApprovals]);
 
     return (
         <Box
@@ -216,9 +221,9 @@ export default function Approvals({ contractID }: { contractID: string }) {
             </header>
             <Divider orientation="horizontal" marginBottom={"1rem"} />
             <Flex>
+            {approvals?.length > 0 ? (
                 <UnorderedList style={{ marginLeft: "0", width: "100%" }}>
-                    {approvals?.length > 0 &&
-                        approvals?.map(
+                    {approvals?.map(
                             (approval: ContractApproval, index: number) => (
                                 <ListItem
                                     key={index}
@@ -281,6 +286,9 @@ export default function Approvals({ contractID }: { contractID: string }) {
                             )
                         )}
                 </UnorderedList>
+            ) : (
+                    <Text>No Data</Text>
+                )}
             </Flex>
             <Modal onClose={onCloseModal} isOpen={isOpenModal} isCentered>
                 <ModalOverlay />

@@ -199,8 +199,8 @@ export default function LoginForm() {
                                             type="password"
                                             placeholder="*******"
                                             h={"50px"}
-                                        />
-                                    </InputGroup> */}
+                                        /> */}
+                                    {/* </InputGroup> */}
                                     <InputGroup size="md">
                                         <Input
                                             {...register("password")}

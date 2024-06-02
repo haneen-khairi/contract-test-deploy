@@ -12,6 +12,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import React from "react";
 import * as z from "zod";
+import CustomDatePicker from "../common/CustomDatePicker/CustomDatePicker";
 
 // Validation schema using Zod
 const schema = z.object({
@@ -33,7 +34,7 @@ export default function SearchBar() {
     type: searchParams.get("type") || "",
   };
 
-  const { handleSubmit, register, reset } = useForm({defaultValues});
+  const { handleSubmit, register, reset, getValues, setValue } = useForm({defaultValues});
 
   const resetValues = {
     name: "",
@@ -87,26 +88,7 @@ export default function SearchBar() {
             borderRadius={"8px"}
           />
         </FormControl>
-        <FormControl flexGrow="1" w={"220px"}>
-          <Input
-            type="date"
-            {...register("start_date")}
-            bgColor="white"
-            borderColor="#c4cfe5"
-            placeholder="Start Date"
-            borderRadius={"8px"}
-          />
-        </FormControl>
-        <FormControl flexGrow="1" w={"220px"}>
-          <Input
-            type="date"
-            {...register("end_date")}
-            bgColor="white"
-            borderColor="#c4cfe5"
-            placeholder="End Date"
-            borderRadius={"8px"}
-          />
-        </FormControl>
+        <CustomDatePicker register={register} getValues={getValues} setValue={setValue} />
         <FormControl flexGrow="1" w={"220px"}>
           <Select
             {...register("type")}

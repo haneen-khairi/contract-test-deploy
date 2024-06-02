@@ -55,7 +55,6 @@ export async function postRelations(
             }),
         });
 
-
         const response = await res.json();
 
         return response;
@@ -73,15 +72,19 @@ export async function postRelations(
 }
 
 export async function putRelations(
+    relationID: string,
     contractID: string,
     accessToken: string,
     data: unknown
 ) {
     try {
-        const validatedData = newRelationSchema.parse(data);
 
-        const url =
-            "https://staging.backend.accordcontract.com/contract/core/relations";
+        const url = `https://staging.backend.accordcontract.com/contract/core/relations/${relationID}`;
+
+        const bodyObject =
+            data === "department" || data === "contract"
+                ? { type: data }
+                : { related_to: data };
 
         const res = await fetch(url, {
             method: "PUT",
@@ -89,11 +92,7 @@ export async function putRelations(
                 Authorization: `Bearer ${accessToken}`,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                type: validatedData.type,
-                related_to: validatedData.related_to,
-                contract: contractID,
-            }),
+            body: JSON.stringify(bodyObject),
         });
 
         const response = await res.json();

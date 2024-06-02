@@ -101,7 +101,7 @@ export async function getUserPermissions(key: string, accessToken: string): Prom
     if (!res.ok) {
         console.log("Error:", res.status);
 
-        const temp = { name: "", contracts: [], error: "Failed to fetch contract permissions" }
+        const temp = { name: "", contracts: [], can_add_contract: false, error: "Failed to fetch contract permissions" }
         if (res.status === 401 || res.status === 403) {
             temp.error = "Unauthorized";
         }
@@ -148,3 +148,80 @@ export async function editPermission(contractId: string, userId: string, permiss
     }
     return temp;
 };
+
+export async function deleteUser(
+    userID: string,
+    accessToken: string
+): Promise<{
+    message: string;
+}> {
+    try {
+        const url = `https://staging.backend.accordcontract.com/account/user/${userID}`;
+
+        const res = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+            },
+        });
+
+        const response = await res.json();
+
+        if (!res.ok) {
+            console.log("Error:", res.status);
+
+            const temp = { message: "Failed to fetch contract permissions" }
+            if (res.status === 401 || res.status === 403) {
+                temp.message = "Unauthorized";
+            }
+            return temp;
+        }
+
+        return { message: "ok" };
+    } catch (error) {
+        console.log("error deleting user", error);
+        return { message: "Error deleting user" };
+    }
+}
+
+export async function userCanAddContract(
+    userID: string,
+    canAdd: boolean,
+    accessToken: string
+): Promise<{
+    message: string;
+}> {
+    try {
+        const url = `https://staging.backend.accordcontract.com/contract/permission/permission/add_contract`;
+
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user: userID,
+                can_add_contract: canAdd
+            })
+        });
+
+        const response = await res.json();
+
+        if (!res.ok) {
+            console.log("Error:", res.status);
+
+            const temp = { message: "Failed to fetch contract permissions" }
+            if (res.status === 401 || res.status === 403) {
+                temp.message = "Unauthorized";
+            }
+            return temp;
+        }
+
+        return { message: "ok" };
+    } catch (error) {
+        console.log("error deleting user", error);
+        return { message: "Error deleting user" };
+    }
+}

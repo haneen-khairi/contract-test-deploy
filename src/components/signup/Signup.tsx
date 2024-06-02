@@ -9,6 +9,7 @@ import {
     Button,
     InputRightElement,
     Box,
+    Checkbox,
     Heading,
     Text,
     Flex,
@@ -19,7 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-
+import "./Signup.css";
 import { signupSchema } from "@/schemas";
 import { signup } from "@/actions/signup";
 import { OTPInput } from "@/components/pin-input";
@@ -29,10 +30,14 @@ import Link from "next/link";
 export default function Signup() {
     const [showOTP, setShowOTP] = useState(false);
     const [email, setEmail] = useState("");
-    const [show, setShow] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const toast = useToast();
+    const [isChecked, setIsChecked] = useState(false);
 
-    const handleClick = () => setShow(!show);
+    const handleClick = () => setShowPassword(!showPassword);
+    const handleConfirmedClick = () =>
+        setShowConfirmPassword(!showConfirmPassword);
 
     const {
         register,
@@ -56,9 +61,41 @@ export default function Signup() {
                 isClosable: false,
             });
             setShowOTP(true);
-        } else {
+        } else if (response?.user_errors?.email) {
             toast({
-                description: `${response?.user_errors?.email} \n ${response?.user_errors?.email} \n ${response?.user_errors?.first_name} \n ${response?.user_errors?.last_name} \n ${response?.company_errors?.company_name} \n `,
+                description: `${response?.user_errors?.email}`,
+                position: "top",
+                status: "error",
+                duration: 3000,
+                isClosable: false,
+            });
+        } else if (response?.user_errors?.phone_number) {
+            toast({
+                description: `${response?.user_errors?.phone_number}`,
+                position: "top",
+                status: "error",
+                duration: 3000,
+                isClosable: false,
+            });
+        } else if (response?.user_errors?.first_name) {
+            toast({
+                description: `${response?.user_errors?.first_name}`,
+                position: "top",
+                status: "error",
+                duration: 3000,
+                isClosable: false,
+            });
+        } else if (response?.user_errors?.last_name) {
+            toast({
+                description: ` ${response?.user_errors?.last_name}`,
+                position: "top",
+                status: "error",
+                duration: 3000,
+                isClosable: false,
+            });
+        } else if (response?.company_errors?.company_name) {
+            toast({
+                description: `${response?.company_errors?.company_name} `,
                 position: "top",
                 status: "error",
                 duration: 3000,
@@ -158,7 +195,11 @@ export default function Signup() {
                                         <Input
                                             {...register("password")}
                                             pr="4.5rem"
-                                            type={show ? "text" : "password"}
+                                            type={
+                                                showPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
                                             placeholder="Enter password"
                                         />
                                         <InputRightElement width="4.5rem">
@@ -168,7 +209,7 @@ export default function Signup() {
                                                 onClick={handleClick}
                                                 bg={"transparent"}
                                             >
-                                                {show ? (
+                                                {showPassword ? (
                                                     <Image
                                                         src="/icons/hide.svg"
                                                         alt="hide"
@@ -195,17 +236,21 @@ export default function Signup() {
                                         <Input
                                             {...register("confirmPassword")}
                                             pr="4.5rem"
-                                            type={show ? "text" : "password"}
+                                            type={
+                                                showConfirmPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
                                             placeholder="Enter password"
                                         />
                                         <InputRightElement width="4.5rem">
                                             <Button
                                                 h="1.75rem"
                                                 size="sm"
-                                                onClick={handleClick}
+                                                onClick={handleConfirmedClick}
                                                 bg={"transparent"}
                                             >
-                                                {show ? (
+                                                {showConfirmPassword ? (
                                                     <Image
                                                         src="/icons/hide.svg"
                                                         alt="hide"
@@ -297,6 +342,27 @@ export default function Signup() {
                                             `${errors.company_website.message}`}
                                     </FormErrorMessage>
                                 </FormControl>
+                                <Box>
+                                    <Checkbox
+                                        size="lg"
+                                        colorScheme="orange"
+                                        isChecked={isChecked}
+                                        onChange={(e) =>
+                                            setIsChecked(e.target.checked)
+                                        }
+                                    >
+                                        By Registering, you acknowledge that you
+                                        have read and agree to our{" "}
+                                        <Link href={"/en/terms"}>
+                                            Terms & Conditions
+                                        </Link>{" "}
+                                        And{" "}
+                                        <Link href={"/en/terms"}>
+                                            Private Policy
+                                        </Link>
+                                        .
+                                    </Checkbox>
+                                </Box>
                                 <Button
                                     type="submit"
                                     variant="prime"
@@ -306,6 +372,7 @@ export default function Signup() {
                                     fontWeight={600}
                                     fontSize={"18px"}
                                     h={"fit-content"}
+                                    isDisabled={!isChecked}
                                 >
                                     Confirm
                                 </Button>

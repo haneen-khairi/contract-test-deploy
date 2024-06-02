@@ -28,55 +28,56 @@ export default function ContractsEndSoon({
 
     return (
         <Stack padding={"0 24px 0"}>
-            {contracts.length > 0 &&
+            {contracts.length > 0 ? (
                 contracts.map((contract, _index) => (
-                    <>
-                        <Box key={contract.id}>
-                            <Flex alignItems={"center"}>
-                                <Image
-                                    boxSize="52px"
-                                    src={"/icons/purple_contract.svg"}
-                                    alt="contract"
-                                    paddingRight={"12px"}
-                                />
-                                <Flex flexDirection={"column"}>
-                                    <Heading
-                                        as="h3"
-                                        size="md"
-                                        fontSize="16px"
-                                        fontWeight="500"
-                                        lineHeight="20px"
-                                        color={"#101828"}
-                                        paddingBottom={"4px"}
+                    <Box key={contract.id}>
+                        <Flex alignItems={"center"}>
+                            <Image
+                                boxSize="52px"
+                                src={"/icons/purple_contract.svg"}
+                                alt="contract"
+                                paddingRight={"12px"}
+                            />
+                            <Flex flexDirection={"column"}>
+                                <Heading
+                                    as="h3"
+                                    size="md"
+                                    fontSize="16px"
+                                    fontWeight="500"
+                                    lineHeight="20px"
+                                    color={"#101828"}
+                                    paddingBottom={"4px"}
+                                >
+                                    {contract.name}
+                                </Heading>
+                                <Flex alignItems="baseline">
+                                    <Text
+                                        color={"#EE7C21"}
+                                        paddingRight={"2px"}
+                                        fontSize="14px"
+                                        fontWeight="400"
+                                        lineHeight="18px"
                                     >
-                                        {contract.name}
-                                    </Heading>
-                                    <Flex alignItems="baseline">
-                                        <Text
-                                            color={"#EE7C21"}
-                                            paddingRight={"2px"}
-                                            fontSize="14px"
-                                            fontWeight="400"
-                                            lineHeight="18px"
-                                        >
-                                            Will End{" "}
-                                        </Text>
-                                        <Text
-                                            color={"#667085"}
-                                            fontSize="14px"
-                                            fontWeight="400"
-                                            lineHeight="18px"
-                                        >
-                                            {" "}
-                                            :{contract.will_end}
-                                        </Text>
-                                    </Flex>
+                                        Will End{" "}
+                                    </Text>
+                                    <Text
+                                        color={"#667085"}
+                                        fontSize="14px"
+                                        fontWeight="400"
+                                        lineHeight="18px"
+                                    >
+                                        {" "}
+                                        :{contract.will_end}
+                                    </Text>
                                 </Flex>
                             </Flex>
-                        </Box>
+                        </Flex>
                         <Divider color="#8F92A1" />
-                    </>
-                ))}
+                    </Box>
+                ))
+            ) : (
+                <Text>No Data</Text>
+            )}
         </Stack>
     );
 }

@@ -15,7 +15,7 @@ export default function ShareModal({
  }) {
     const {data: session} = useSession()
     const toast = useToast()
-    const link = `${process.env.NEXT_PUBLIC_DOMAIN}/invoice?invoiceId=${id}`;
+    const link = `${process.env.NEXT_PUBLIC_DOMAIN}/en/${id}/invoice`;
     
     async function makeInvoicePublic(invoice_id: any) {
         const response = await CustomAxios(`post`, `${process.env.NEXT_PUBLIC_API_KEY}contract/invoice/share/make_public`,{

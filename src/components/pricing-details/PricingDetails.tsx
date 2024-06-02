@@ -2,6 +2,7 @@
 
 import { CustomAxios } from "@/utils/CustomAxios";
 import { Feature, Plan } from "@/views/pricing";
+import { CheckCircleIcon } from "@chakra-ui/icons";
 import {
     Box,
     Button,
@@ -16,11 +17,13 @@ import {
     ListItem,
     ListIcon,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { MdCheckCircleOutline } from "react-icons/md";
+import SelectedCheckbox from "./SelectedCheckbox";
 
 interface PricingDetailsProps {
     tierName: string;
@@ -41,6 +44,7 @@ export default function PricingDetails({
     onGetCheckoutId: (checkoutId: string) => void
 }) {
     const router = useRouter()
+    const toast = useToast()
     // const features = [
     //     props.feature1,
     //     props.feature2,
@@ -93,11 +97,10 @@ export default function PricingDetails({
                 key={index}
                 // color={props.tierName === "SME Tier" ? "white" : ""}
             >
-                <ListIcon
-                    as={MdCheckCircleOutline}
-                    color={"blue.300"}
-                />
-                {feature.name}
+                <Flex alignItems={'center'} gap={'8px'}>
+                    <SelectedCheckbox />
+                    {feature.name}
+                </Flex>
             </ListItem>
         );
     });
@@ -111,6 +114,7 @@ export default function PricingDetails({
                 borderRadius: "8px",
                 padding: "24px 24px 24px",
             }}
+            className="pricing__card"
             // backgroundColor={props.tierName === "SME Tier" ? "#287AE0" : ""}
         >
             <CardHeader 
@@ -167,7 +171,17 @@ export default function PricingDetails({
                     variant="outline"
                     onClick={() =>{
                         if(session?.tokens?.access){
-                            subscribeToPlan(plan.id)
+                            if(plan.price >= "0.00"){
+                                toast({
+                                    description: "You are already on free plan",
+                                    position: "top",
+                                    status: "info",
+                                    duration: 3000,
+                                    isClosable: false,
+                                })
+                            }else{
+                                subscribeToPlan(plan.id)
+                            }
                         }else{
                             router.push(`/en/login`)
                         }

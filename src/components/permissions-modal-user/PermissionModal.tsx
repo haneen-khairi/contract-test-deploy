@@ -1,11 +1,13 @@
 "use client";
 
-import { getUserPermissions } from "@/actions/permissions";
+import { deleteUser, getUserPermissions } from "@/actions/permissions";
 import { UserPermissionsResponse } from "@/types/types";
 import {
   Box,
   Button,
+  Checkbox,
   Divider,
+  Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,6 +15,13 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Spinner,
   Table,
   Tbody,
@@ -26,6 +35,9 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import UserPermissions from "./PermissionsMenu";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { useRouter } from "next/navigation";
+import CreatorCheckbox from "./CreatorCheckbox";
 
 type ContractPermissionsComponentProps = {
   isOpen: boolean;
@@ -41,15 +53,18 @@ export default function PermissionModal({
   userKey,
 }: ContractPermissionsComponentProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [userPermission, setUserPermission] =
-    useState<UserPermissionsResponse>({
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [userPermission, setUserPermission] = useState<UserPermissionsResponse>(
+    {
       name: "",
       contracts: [],
-    });
+      can_add_contract: false
+    }
+  );
 
   const { data: session } = useSession();
   const toast = useToast();
-
+  const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -100,6 +115,56 @@ export default function PermissionModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userKey]);
 
+  const deleteUserHandler = async () => {
+    setDeleteLoading(true);
+    try {
+      const accessToken = session?.tokens?.access || "";
+      const data = await deleteUser(userKey, accessToken);
+
+      if (data.message === "Unauthorized") {
+        toast({
+          description: "Login token expired please login again",
+          position: "top",
+          status: "error",
+          duration: 3000,
+          isClosable: false,
+        });
+        signOut();
+      } else if (data.message === "ok") {
+        toast({
+          description: "User deleted successfully",
+          position: "bottom",
+          status: "success",
+          duration: 3000,
+          isClosable: false,
+        });
+        router.refresh();
+        onClose();
+      } else {
+        // Show toast for other errors
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      // Show toast for unexpected errors
+      toast({
+        title: "Error",
+        description: "Failed to delete user",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+  
   return (
     <>
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -118,56 +183,95 @@ export default function PermissionModal({
               <Spinner />
             ) : (
               <Box>
-                <Text fontWeight={"500"}>User:</Text>
-                <Text mb={"24px"}>{userPermission.name}</Text>
-                <Table w="100%">
-                  <Thead>
-                    <Tr>
-                      <Th
-                        p={{ md: "12px 24px", base: "6px 12px" }}
-                        color={"#287AE0"}
+                <Flex justify={"space-between"}>
+                  <Flex direction={"column"}>
+                    <Text fontWeight={"500"}>User:</Text>
+                    <Text mb={"24px"}>{userPermission.name}</Text>
+                  </Flex>
+                  <Popover>
+                    <PopoverTrigger>
+                      <Button
+                        variant={"outline"}
+                        colorScheme="red"
+                        leftIcon={<RiDeleteBinLine />}
                       >
-                        Contract
-                      </Th>
-                      <Th
-                        p={{ md: "12px 24px", base: "6px 12px" }}
-                        color={"#287AE0"}
-                      >
-                        Permission
-                      </Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {userPermission.contracts.map((contract) => (
-                      <Tr key={contract.id}>
-                        <Td
-                          maxW={{ md: "300px", base: "150px" }}
-                          overflow="hidden"
-                          textOverflow="ellipsis"
-                          whiteSpace="nowrap"
-                          p={{ md: "16px 24px", base: "8px 12px" }}
+                        Delete User
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverHeader fontWeight="semibold">
+                        Delete User
+                      </PopoverHeader>
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <PopoverBody>
+                        <Text mb={2}>Deleting user warning message</Text>
+                        <Button
+                          w={"100%"}
+                          colorScheme="red"
+                          isLoading={deleteLoading}
+                          onClick={deleteUserHandler}
                         >
-                          {contract.name}
-                        </Td>
-
-                        <Td
-                          p={{ md: "16px 24px", base: "8px 12px" }}
-                          overflow="hidden"
-                          textOverflow="ellipsis"
-                          whiteSpace="nowrap"
+                          Delete
+                        </Button>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>  
+                </Flex>
+                <CreatorCheckbox userID={userKey} isCheckedPermission={userPermission.can_add_contract} />
+                <Box w="100%" overflow={"auto"}>
+                  <Table w={"100%"}>
+                    <Thead>
+                      <Tr>
+                        <Th
+                          p={{ md: "12px 24px", base: "6px 12px" }}
+                          color={"#287AE0"}
                         >
-                          <UserPermissions
-                            permissions={contract.Permissions}
-                            userId={userKey}
-                            contractId={contract.id}
-                          />
-                        </Td>
+                          Contract
+                        </Th>
+                        <Th
+                          p={{ md: "12px 24px", base: "6px 12px" }}
+                          color={"#287AE0"}
+                        >
+                          Permission
+                        </Th>
                       </Tr>
-                    ))}
-                  </Tbody>
-                </Table>
+                    </Thead>
+                    <Tbody>
+                      {userPermission.contracts.map((contract) => (
+                        <Tr key={contract.id}>
+                          <Td
+                            maxW={{ md: "265px", base: "200px" }}
+                            w={"fit-content"}
+                            overflow="hidden"
+                            textOverflow="ellipsis"
+                            whiteSpace="nowrap"
+                            p={{ md: "16px 24px", base: "8px 12px" }}
+                          >
+                            {contract.name}
+                          </Td>
+
+                          <Td
+                            p={{ md: "16px 24px", base: "8px 12px" }}
+                            overflow="hidden"
+                            textOverflow="ellipsis"
+                            whiteSpace="nowrap"
+                          >
+                            <UserPermissions
+                              permissions={contract.Permissions}
+                              userId={userKey}
+                              contractId={contract.id}
+                            />
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </Box>
                 {userPermission.contracts.length == 0 && (
-                  <Text p={"12px"} fontWeight={"600"} textAlign={"center"}>No user permissions have been set yet</Text>
+                  <Text p={"12px"} fontWeight={"600"} textAlign={"center"}>
+                    No user permissions have been set yet
+                  </Text>
                 )}
               </Box>
             )}

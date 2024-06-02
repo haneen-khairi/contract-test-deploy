@@ -1,9 +1,6 @@
 "use client";
 
-import {
-    Box,
-    Select,
-} from "@chakra-ui/react";
+import { Box, Select } from "@chakra-ui/react";
 import "./RelationForm.css";
 
 type Relation = {
@@ -28,6 +25,7 @@ interface RelationData {
 export default function RelationForm({
     relation,
     modifyRelation,
+    id,
     relationsOptions,
     contractsOptions,
 }: {
@@ -41,7 +39,11 @@ export default function RelationForm({
         original: any,
         event: React.ChangeEvent<HTMLSelectElement>
     ) => {
-        modifyRelation(original, event.target.value);
+        const selectedOption = event.target.options[event.target.selectedIndex];
+        const selectedId = selectedOption.value;
+        const selectedName = selectedOption.text;
+
+        modifyRelation(id, original, selectedId, selectedName);
     };
 
     return (

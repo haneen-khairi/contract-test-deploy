@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import {
@@ -12,12 +13,18 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateTagSchema } from "@/schemas";
 import { z } from "zod";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
+import { FaEdit } from "react-icons/fa";
+import { FaSave } from "react-icons/fa";
+import DateInput from "../common/DateInput";
 
-type ContractTag = {
+export type ContractTag = {
     id: string;
     name: string;
     value: string;
     is_name_editable: boolean;
+    type: "str" | "date" | "decimal";
 };
 
 export default function TagsForm({
@@ -25,18 +32,16 @@ export default function TagsForm({
     modifyTag,
     removeTag,
 }: {
-    tag: any;
+    tag: ContractTag;
     modifyTag: any;
     removeTag: any;
 }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [isEdit, setIsEdit] = useState(false);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-        reset,
-    } = useForm<z.infer<typeof updateTagSchema>>({
+    const { register, handleSubmit, getValues, setValue } = useForm<
+        z.infer<typeof updateTagSchema>
+    >({
         resolver: zodResolver(updateTagSchema),
     });
 
@@ -44,8 +49,43 @@ export default function TagsForm({
         tagID: string,
         data: z.infer<typeof updateTagSchema>
     ) => {
-        modifyTag(tagID, data);
-        onClose();
+        if (isEdit) {
+            setIsEdit(false);
+
+            modifyTag(tagID, {
+                ...{ tag_name: tagID },
+                ...data,
+            });
+            onClose();
+        } else {
+            setIsEdit(true);
+        }
+    };
+
+    useEffect(() => {
+        if (tag?.value) setValue("tag_value", tag.value);
+    }, [tag?.value]);
+
+    const InputComponent = ({ tag }: { tag: ContractTag }) => {
+        if (tag?.type === "date")
+            return (
+                <DateInput
+                    getValues={getValues}
+                    register={register}
+                    setValue={setValue}
+                    name={"tag_value"}
+                    disabled={!isEdit}
+                />
+            );
+
+        return (
+            <Input
+                type="text"
+                variant="outline"
+                {...register("tag_value")}
+                isDisabled={!isEdit}
+            />
+        );
     };
 
     return (
@@ -62,7 +102,7 @@ export default function TagsForm({
                         marginBottom: "8px",
                     }}
                 >
-                    {tag.is_name_editable ? (
+                    {tag.is_name_editable && isEdit ? (
                         <Input
                             type="text"
                             variant="outline"
@@ -74,35 +114,33 @@ export default function TagsForm({
                     )}
                 </Box>
                 <Box display={"flex"}>
-                    <Input
-                        type="text"
-                        variant="outline"
-                        {...register("tag_value")}
-                        defaultValue={tag.value}
-                    />
-                    <ButtonGroup>
+                    <InputComponent tag={tag} />
+                    <ButtonGroup marginLeft="12px">
                         <Button
                             aria-label={"Update tag"}
                             variant="solid"
-                            background="#287AE0"
-                            color="white"
+                            background="transparent"
+                            color="#287AE0"
                             border={"unset"}
-                            type="submit"
-                            marginLeft={"12px"}
-                            width="80px"
+                            onClick={async () =>
+                                await onSubmit(tag.id, getValues())
+                            }
+                            type="button"
                         >
-                            Update
+                            {isEdit ? <FaSave /> : <FaEdit />}
                         </Button>
-                        <Button
-                            aria-label={"Remove tag"}
-                            variant="outline"
-                            marginLeft={"10px"}
-                            colorScheme="red"
-                            width="80px"
-                            onClick={() => removeTag(tag.id)}
-                        >
-                            Remove
-                        </Button>
+
+                        {tag.is_name_editable && (
+                            <Button
+                                aria-label={"Remove tag"}
+                                variant="solid"
+                                background="transparent"
+                                color="red"
+                                onClick={() => removeTag(tag?.id)}
+                            >
+                                <DeleteIcon />
+                            </Button>
+                        )}
                     </ButtonGroup>
                 </Box>
             </FormControl>

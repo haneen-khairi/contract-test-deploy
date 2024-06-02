@@ -51,6 +51,7 @@ export default function NewRelation({
 
     const onSubmit = async (data: z.infer<typeof newRelationSchema>) => {
         submitNewRelation(data);
+        reset();
         onClose();
     };
 

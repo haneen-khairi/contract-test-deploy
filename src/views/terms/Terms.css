@@ -1,0 +1,6 @@
+.chakra-text,
+ul {
+    a {
+        text-decoration: underline;
+    }
+}

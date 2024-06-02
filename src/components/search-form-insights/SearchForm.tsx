@@ -9,6 +9,7 @@ import * as z from "zod";
 import { getContractStatus, getContractTypes } from "@/actions/contracts";
 import { useSession } from "next-auth/react";
 import { ContractType, StateItem } from "@/types/types";
+import CustomDatePicker from "../common/CustomDatePicker/CustomDatePicker";
 
 // Validation schema using Zod
 const schema = z.object({
@@ -36,7 +37,7 @@ export default function SearchBar() {
     status: searchParams.get("status") || "",
   };
 
-  const { handleSubmit, register, reset, getValues } = useForm({defaultValues});
+  const { handleSubmit, register, reset, getValues, setValue } = useForm({defaultValues});
 
   const resetValues = {
     name: "",
@@ -120,26 +121,7 @@ export default function SearchBar() {
             borderRadius={"8px"}
           />
         </FormControl>
-        <FormControl flexGrow="1" w={"220px"}>
-          <Input
-            type="date"
-            {...register("start_date")}
-            bgColor="white"
-            borderColor="#c4cfe5"
-            placeholder="Start Date"
-            borderRadius={"8px"}
-          />
-        </FormControl>
-        <FormControl flexGrow="1" w={"220px"}>
-          <Input
-            type="date"
-            {...register("end_date")}
-            bgColor="white"
-            borderColor="#c4cfe5"
-            placeholder="End Date"
-            borderRadius={"8px"}
-          />
-        </FormControl>
+        <CustomDatePicker register={register} getValues={getValues} setValue={setValue} />
         <FormControl flexGrow="1" w={"220px"}>
           <Select
             {...register("type")}

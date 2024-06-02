@@ -1,0 +1,17 @@
+.chakra-checkbox {
+    display: flex;
+    align-items: flex-start;
+}
+
+.chakra-checkbox__label {
+    font-size: 14px !important;
+
+    a {
+        color: #ee7c21;
+        text-decoration: underline;
+    }
+}
+
+.chakra-checkbox__control {
+    border-radius: 4px;
+}

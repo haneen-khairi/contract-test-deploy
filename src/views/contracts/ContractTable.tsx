@@ -29,6 +29,8 @@ interface Message {
     currency: string | null;
     status: Status | null;
     type: string | null;
+    cost: string | null;
+    profit: string | null;
 }
 
 interface Props {
@@ -52,6 +54,8 @@ export default function ContractTable({ contracts }: Props) {
                         <Th color={"#287AE0"}>End Date</Th>
                         <Th color={"#287AE0"}>Product/Service Name</Th>
                         <Th color={"#287AE0"}>Type</Th>
+                        <Th color={"#287AE0"}>Cost</Th>
+                        <Th color={"#287AE0"}>Profit</Th>
                         <Th color={"#287AE0"}>Value</Th>
                         <Th color={"#287AE0"}>Status</Th>
                     </Tr>
@@ -107,6 +111,20 @@ export default function ContractTable({ contracts }: Props) {
                                 whiteSpace="nowrap"
                             >
                                 {contract.value} {contract.currency}
+                            </Td>
+                            <Td
+                                overflow="hidden"
+                                textOverflow="ellipsis"
+                                whiteSpace="nowrap"
+                            >
+                                {contract.cost}
+                            </Td>
+                            <Td
+                                overflow="hidden"
+                                textOverflow="ellipsis"
+                                whiteSpace="nowrap"
+                            >
+                                {contract.profit}
                             </Td>
                             <Td
                                 overflow="hidden"

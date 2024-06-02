@@ -97,9 +97,11 @@ export default function Activities({ contractID }: { contractID: string }) {
             </header>
             <Divider orientation="horizontal" marginBottom={"1rem"} />
             <Flex>
-                <UnorderedList style={{ marginLeft: "0", width: "100%" }}>
-                    {activities?.length > 0 &&
-                        activities?.map(
+                {activities?.length === 0 ? (
+                    <Text>No Data</Text>
+                ) : (
+                    <UnorderedList style={{ marginLeft: "0", width: "100%" }}>
+                        {activities?.map(
                             (activity: Activity, index: number) =>
                                 index < 3 && (
                                     <ListItem
@@ -138,7 +140,11 @@ export default function Activities({ contractID }: { contractID: string }) {
                                             <Avatar
                                                 size="xs"
                                                 name={activity?.action_by?.name}
-                                                src="https://bit.ly/broken-link"
+                                                src={
+                                                    activity?.action_by
+                                                        ?.image ||
+                                                    "https://bit.ly/broken-link"
+                                                }
                                             />
                                             <Text
                                                 fontWeight={"500"}
@@ -150,7 +156,8 @@ export default function Activities({ contractID }: { contractID: string }) {
                                     </ListItem>
                                 )
                         )}
-                </UnorderedList>
+                    </UnorderedList>
+                )}
             </Flex>
             <Modal onClose={onClose} isOpen={isOpen} isCentered>
                 <ModalOverlay />

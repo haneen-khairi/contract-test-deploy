@@ -24,7 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { updateTagSchema } from "@/schemas";
 import { z } from "zod";
 import { EditIcon } from "@chakra-ui/icons";
-import TagForm from "./TagForm";
+import TagForm, { ContractTag } from "./TagForm";
 
 export default function UpdateTagModal({
     modifyTag,
@@ -36,13 +36,6 @@ export default function UpdateTagModal({
     tags: any;
 }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
-
-    type ContractTag = {
-        id: string;
-        name: string;
-        value: string;
-        is_name_editable: boolean;
-    };
 
     return (
         <>
@@ -67,7 +60,7 @@ export default function UpdateTagModal({
                             <UnorderedList
                                 style={{ marginLeft: "0", width: "100%" }}
                             >
-                                {tags.length > 0 &&
+                                {tags?.length > 0 &&
                                     tags.map(
                                         (tag: ContractTag, _index: number) => (
                                             <ListItem
@@ -81,7 +74,7 @@ export default function UpdateTagModal({
                                                 }}
                                             >
                                                 <TagForm
-                                                    tag={tag}
+                                                    tag={tag as ContractTag}
                                                     modifyTag={modifyTag}
                                                     removeTag={removeTag}
                                                 />

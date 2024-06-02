@@ -38,7 +38,7 @@ import TagsForm from "../import-form/TagsForm";
 import { useEffect, useState } from "react";
 import NotificationDropdown from "../Notifications/NotificationsContainer";
 import { CustomAxios } from "@/utils/CustomAxios";
-
+import { useRouter } from "next/navigation";
 export default function Header() {
   const { data: session } = useSession();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,6 +50,8 @@ export default function Header() {
     onOpen: onOpenModal,
     onClose: onCloseModal,
   } = useDisclosure();
+
+  const router = useRouter();
   const {
     isOpen: isCreateModalOpen,
     onOpen: onOpenModalTags,
@@ -108,9 +110,12 @@ export default function Header() {
               w={"40px"}
               h={"40px"}
               name={session?.user?.name}
-              src=""
+              src={session?.user?.image}
             />
-            <Text display={{ base: "none", md: "initial" }} fontWeight={"500"}>
+          <Text
+                            display={{ base: "none", md: "initial" }}
+                            fontWeight={"500"}
+                        >
               {session?.user?.name}
             </Text>
             <Menu>
@@ -123,7 +128,7 @@ export default function Header() {
                 <FaChevronDown />
               </Button>
               <MenuList>
-                <MenuItem isDisabled>Profile</MenuItem>
+              <MenuItem onClick={() => {router.push("/en/dashboard/account")}}>Profile</MenuItem>
                 <MenuItem
                   onClick={() => {
                     signOut();
@@ -192,8 +197,8 @@ export default function Header() {
           <DrawerHeader borderBottomWidth={1}>
             <Flex justifyContent={"space-between"} alignItems={"center"}>
               <Image
-                w={"118px"}
-                src={"/images/core-logo.svg"}
+               w={"40px"}
+               src={"/images/base-logo.svg"}
                 alt="core-logo"
                 transition={"linear 0.3s"}
               />

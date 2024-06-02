@@ -170,12 +170,12 @@ const ItemForm: React.FC<ItemFormProps> = ({ item, onItemChange }) => {
         </FormLabel>
         <Input
           type="number"
-          {...register('price', { required: 'Price is required' })}
+          {...register("price")}
           onChange={handleInputChange}
           placeholder="Price"
         />
         <FormErrorMessage>
-        {errors.price && String(errors.price.message)}
+          {errors.price && errors.price.message as string}
         </FormErrorMessage>
       </FormControl>
     </Flex>
