@@ -167,7 +167,7 @@ export default function TagsForm({ onClose, onSuccess, tags, keyAttachment, sess
                     <Grid gap={'12px'} templateColumns='repeat(3, 1fr)'  mt={'12px'}>
                         {customTags?.length ? customTags.map(tag => (
                             <Flex borderRadius={'30px'} border={'1px solid #E0E3E6'} gap={'8px'} justifyContent={'space-between'} alignItems={'center'} padding={'6px 12px'} key={tag.uniqueId}>
-                                <Text fontSize={'14px'} fontWeight={'600'} wordBreak={'break-all'}>{tag.name}</Text>
+                                <Text fontSize={'12px'} fontWeight={'600'} wordBreak={'break-all'}>{tag.name}</Text>
                                 <Button size="xs" bgColor="#fff" onClick={() => handleRemoveCustomTag(tag.uniqueId)}>
                                     <CloseIcon />
                                 </Button>
