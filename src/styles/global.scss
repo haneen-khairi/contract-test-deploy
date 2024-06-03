@@ -136,10 +136,8 @@ body {
 .ck-sticky-panel__content {
   border: 1px solid #E5E5E5;
 }
-
 .notification {
-  &__header {
-    //styleName: B7/Bold;
+  &__header { 
     font-family: Inter;
     font-size: 18px;
     font-weight: 700;
@@ -149,19 +147,10 @@ body {
   }
 
   &__menu {
-    &--item {
-      // padding: 25px 0;
+    &--item { 
       width: 100%;
       padding: 0 24px;
-      // &:first-child{
-      //   padding-top: 25px;
-      // }
-      // &:last-child{
-      //   padding-bottom: 25px;
-      // }
-      // &:not(:last-child, :first-child){
-      //   padding: 12px 0;
-      // }
+ 
 
       &-type {
         font-family: Roboto;
@@ -171,6 +160,8 @@ body {
         text-align: start;
         width: 100%;
         display: block;
+        white-space: break-spaces;
+
       }
 
       &-title {
@@ -180,6 +171,7 @@ body {
         font-weight: 500;
         line-height: 21.09px;
         text-align: start;
+        white-space: break-spaces;
 
       }
 
@@ -189,6 +181,7 @@ body {
         font-weight: 400;
         line-height: 20.24px;
         text-align: left;
+        white-space: break-spaces;
 
       }
 
@@ -199,6 +192,7 @@ body {
         line-height: 23.62px;
         text-align: left;
         margin-bottom: 12px;
+        word-break: break-all;
       }
     }
   }
