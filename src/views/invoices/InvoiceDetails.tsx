@@ -128,7 +128,7 @@ export default function InvoiceDetails({
                     <Image
                         width={{ lg: "32px", md: "32px", sm: "16px" }}
                         display={{ base: "none", md: "inline-block" }}
-                        src={"/images/short-logo.svg"}
+                        src={"/images/core-logo.svg"}
                         alt={"brand logo"}
                     />
                     <BackButton />
