@@ -24,6 +24,7 @@ function NotificationDropdown({
     };
 
     return (
+        
         <Popover>
             <PopoverTrigger>
             <Button
@@ -43,14 +44,14 @@ function NotificationDropdown({
                 <PopoverHeader className='notification__header'>New Notifications ({notifications?.length})</PopoverHeader>
                 <PopoverBody padding={0} >
                     <Flex gap={'25px'} paddingY={'25px'} direction={'column'}>
-                        {notifications?.length> 0 && notifications.map((notification: INotification, index: number) => <Button backgroundColor={'transparent'}  key={index} onClick={() => handleNotificationClick('Notification 1')} paddingX={0} paddingY={0} height={'100%'} width={'100%'}>
+                        {notifications?.length > 0 ? notifications.map((notification: INotification, index: number) => <Button backgroundColor={'transparent'}  key={index} onClick={() => handleNotificationClick('Notification 1')} paddingX={0} paddingY={0} height={'100%'} width={'100%'}>
                             <NotificationItem 
                                 notificationType={notification.type}
                                 notificationMsg={notification.content}
                                 notificationDate={notification.time_since}
                                 notificationTitle={notification.title}
                             />
-                            </Button>)}
+                            </Button>): <p className="w-full text-center">No Notifications</p>}
 
                     </Flex>
                 </PopoverBody>
