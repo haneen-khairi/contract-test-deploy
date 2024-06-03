@@ -6,10 +6,24 @@ import { Box, Button, Card, CardBody, Divider, Flex, FormControl, Grid, Heading,
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 export default function Page() {
     const { data: session } = useSession()
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        reset
+    } = useForm({
+        mode: "onChange"
+    })
     const [tickets, setTickets] = useState<Ticket[]>([])
+    const [filteredTickets, setFilteredTickets] = useState<Ticket[]>([]);
+    // const [searchName, setSearchName] = useState("");
+    const [searchStatus, setSearchStatus] = useState<"solved" | "opened" | "">(
+        ""
+    );
     // const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
     const {
         isOpen: isCreateModalOpen,
@@ -20,7 +34,12 @@ export default function Page() {
         const response = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}ticket/tickets`, {
             'Authorization': `Bearer ${session?.tokens?.access || ""}`
         });
+        // console.log("=== res ===", JSON.stringify(response[0]));
         setTickets(response);
+    }
+    function onSearch(data: any){
+        console.log("🚀 ~ onSearch ~ data:", data)
+        handleSearch(data.subject || "" , data.status)
     }
     useEffect(() => {
         if(session?.tokens?.access){
@@ -31,7 +50,22 @@ export default function Page() {
 
         }
     }, [session?.tokens?.access])
+    const handleSearch = (searchName: any , searchStatus: string = "") => {
+        const filtered = tickets.filter((ticket: Ticket) => {
+            const nameMatch = searchName === "" || ticket.subject.toLowerCase().includes(searchName.toLowerCase());
+            const statusMatch = searchStatus === "" || ticket.status === searchStatus;
+            return nameMatch && statusMatch;
+        });
+        console.log("🚀 ~ filtered ~ filtered:", filtered)
+        setTickets(filtered);
+    };
 
+    const handleReset = () => {
+        // setSearchName("");
+        reset()
+        // setSearchStatus("");
+        getTickets(); // Reset to show all tickets
+    };
     return <Box borderRadius={"12px"} p={"24px"}>
         <div className="">
             <Heading
@@ -48,64 +82,63 @@ export default function Page() {
                     All Tickets
                     <Button variant={'prime'} onClick={onOpenModal} color={'#fff'} width={'226px'}>New Ticket</Button>
                 </Flex>
-                <Flex justifyContent={'space-between'}>
-                    <FormControl flexGrow="1" w={"220px"}>
-                        <Input
-                            type="text"
-                            // {...register("name")}
-                            width={'290px'}
-                            bgColor="white"
-                            borderColor="#c4cfe5"
-                            placeholder="Search..."
-                            borderRadius={"8px"}
-                        />
-                    </FormControl>
-                    <Flex alignItems={'center'} gap={'12px'}>
-
-
+                <form onSubmit={handleSubmit(onSearch)}>
+                    <Flex justifyContent={'space-between'}>
                         <FormControl flexGrow="1" w={"220px"}>
-                            <Select
-                                // {...register("status")}
+                            <Input
+                                type="text"
+                                {...register("subject", {})}
+                                width={'290px'}
                                 bgColor="white"
                                 borderColor="#c4cfe5"
-                                placeholder="Status"
+                                placeholder="Search..."
                                 borderRadius={"8px"}
-                            >
-                                <option value={"solved"}>
-                                    {"Solved"}
-                                </option>
-                                <option value={"opened"}>
-                                    {"Opened"}
-                                </option>
-                                {/* {statusList.map((stateItem) => {
-                return (
-                    <option key={stateItem.id} value={stateItem.id}>
-                    {stateItem.name}
-                    </option>
-                );
-                })} */}
-                            </Select>
+                            />
                         </FormControl>
-                        <Button
-                            variant={"prime"}
-                            //   isLoading={loading}
-                            type="submit"
-                            fontSize={"14px"}
-                            fontWeight={"500"}
-                            p={"10px 16px"}
-                        >
-                            Search
-                        </Button>
-                        <Button
-                            variant="outline"
-                            p={"10px 16px"}
-                            fontSize={"14px"}
-                            fontWeight={"500"}
-                        >
-                            Reset
-                        </Button>
+                        <Flex alignItems={'center'} gap={'12px'}>
+
+
+                            <FormControl flexGrow="1" w={"220px"}>
+                                <Select
+                                    {...register("status", {})}
+                                    bgColor="white"
+                                    borderColor="#c4cfe5"
+                                    placeholder="Status"
+                                    borderRadius={"8px"}
+                                >
+                                    <option value={"solved"}>
+                                        {"Solved"}
+                                    </option>
+                                    <option value={"opened"}>
+                                        {"Opened"}
+                                    </option>
+                                    
+                                </Select>
+                            </FormControl>
+                            <Button
+                                variant={"prime"}
+                                // onClick={handleSearch}
+                                //   isLoading={loading}
+                                type="submit"
+                                fontSize={"14px"}
+                                fontWeight={"500"}
+                                p={"10px 16px"}
+                            >
+                                Search
+                            </Button>
+                            <Button
+                                variant="outline"
+                                p={"10px 16px"}
+                                fontSize={"14px"}
+                                onClick={handleReset}
+                                fontWeight={"500"}
+                            >
+                                Reset
+                            </Button>
+                        </Flex>
                     </Flex>
-                </Flex>
+
+                </form>
             </Heading>
         </div>
         <Grid templateColumns='repeat(2, 1fr)' gap={'24px'} paddingY={"12px"}>
