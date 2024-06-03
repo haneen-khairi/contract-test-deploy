@@ -25,7 +25,7 @@ export default function Sidebar() {
         const response = await CustomAxios('get', `${process.env.NEXT_PUBLIC_API_KEY}subscription/info`, {
             'Authorization': `Bearer ${session?.tokens?.access || ""}`
         })
-        setSubscriptionInfo(response.contract)
+        setSubscriptionInfo(response.contract) 
     }
     useEffect(() => {
         if (session?.tokens?.access) {
@@ -54,6 +54,7 @@ export default function Sidebar() {
             transition={{ duration: 0.3 }}
         >
             <Flex direction={"column"} gap={{ base: "20px", md: "24px" }}>
+             
                 <Flex justifyContent={"space-between"} alignItems={"center"}>
                     <Image
                         w={isCollapsed ? 0 : "70px"}
@@ -131,25 +132,27 @@ export default function Sidebar() {
                         link={"billing"}
                     />
                 </VStack>
-                <div className="progress mb-8px">
-                    <Flex marginBottom={'8px'} justifyContent={'space-between'}>
-                        <p>Free trial</p>
-                        <h3>{subscriptionInfo?.number_of_uploaded} Contracts Left</h3>
-                    </Flex>
-                    <Progress colorScheme={'orange'} borderRadius={'md'} size='sm' value={((subscriptionInfo?.number_of_uploaded || 0) / (subscriptionInfo?.upload_limit || 1)) * 100} />
-                </div>
-                <Card maxW='sm' className="card">
-                    <CardBody className="card__premium">
-                        <Image
-                            src='/icons/premiumIcon.svg'
-                            alt='Green double couch with wooden legs'
-                            borderRadius='lg'
-                            marginBottom={'12px'}
-                        />
-                        <p>Upgrade to <span>Pro</span> for more resources</p>
-                        <Button as={Link} href={'/en/pricing'}   marginTop={'12px'} backgroundColor={'white'} >Upgrade </Button>
-                    </CardBody>
-                </Card>
+                {!isCollapsed ? <>
+                    <div className="progress mb-8px">
+                        <Flex marginBottom={'8px'} justifyContent={'space-between'}>
+                            <p>Free trial</p>
+                            <h3>{subscriptionInfo?.number_of_uploaded} Contracts Left</h3>
+                        </Flex>
+                        <Progress colorScheme={'orange'} borderRadius={'md'} size='sm' value={((subscriptionInfo?.number_of_uploaded || 0) / (subscriptionInfo?.upload_limit || 1)) * 100} />
+                    </div>
+                    <Card maxW='sm' className="card">
+                        <CardBody className="card__premium">
+                            <Image
+                                src='/icons/premiumIcon.svg'
+                                alt='Green double couch with wooden legs'
+                                borderRadius='lg'
+                                marginBottom={'12px'}
+                            />
+                            <p>Upgrade to <span>Pro</span> for more resources</p>
+                            <Button as={Link} href={'/en/pricing'}   marginTop={'12px'} backgroundColor={'white'} >Upgrade </Button>
+                        </CardBody>
+                    </Card>
+                </>: ""}
             </Flex>
         </MotionBox>
     );
