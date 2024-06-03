@@ -36,7 +36,6 @@ export default function TicketAddForm({ onClose , onSuccess }: TicketAddFormProp
 
     const onSubmit = async (e: any) => {
         // e.preventDefault();
-        console.log("==== onsubmit data ====", e)
         setIsSubmitting(true);
         const formData = new FormData();
         formData.append("file", selectedFile!);
@@ -48,7 +47,6 @@ export default function TicketAddForm({ onClose , onSuccess }: TicketAddFormProp
         const fileResponse = await CustomAxios(`get`,`${process.env.NEXT_PUBLIC_API_KEY}ticket/generate_s3_path/ticket`, {
             'Authorization': `Bearer ${session?.tokens?.access || ""}`
         }, formData);
-        console.log("==== response ===", fileResponse)
         const ticketBody = {
             ticket_type: e.ticket_type,
             description: e.description,
@@ -59,7 +57,6 @@ export default function TicketAddForm({ onClose , onSuccess }: TicketAddFormProp
             const response = await CustomAxios(`post`,`${process.env.NEXT_PUBLIC_API_KEY}ticket/create`, {
                 'Authorization': `Bearer ${session?.tokens?.access || ""}`
             }, ticketBody);
-            console.log("ticket file response ==== ", response)
             if (response.data === "The ticket created successfully") {
                 toast({
                     description: response.data,

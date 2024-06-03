@@ -20,7 +20,6 @@ export default function Page() {
         const response = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}ticket/tickets`, {
             'Authorization': `Bearer ${session?.tokens?.access || ""}`
         });
-        // console.log("=== res ===", JSON.stringify(response[0]));
         setTickets(response);
     }
     useEffect(() => {

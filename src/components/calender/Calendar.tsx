@@ -185,12 +185,6 @@ export default function Calendar({ contracts }: Props) {
                     };
                 })}
                 eventClick={(event) => {
-                    // console.log({
-                    //     id: event.event.extendedProps.id,
-                    //     name: event.event.title,
-                    //     type: event.event.extendedProps.type,
-                    // });
-
                     setCurrentEvent({
                         id: event.event.extendedProps.id,
                         name: event.event.title,

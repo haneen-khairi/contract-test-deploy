@@ -20,7 +20,7 @@ interface Contract {
     type: string | null;
 }
 
-interface ContractsResponse {
+export interface ContractsResponse {
     error?: string;
     count: number;
     next: string | null;
@@ -131,7 +131,6 @@ export async function getContractStatus(
         });
 
         const response = await res.json();
-        console.log(response);
 
         if (!res.ok) {
             console.log("error", res.status);

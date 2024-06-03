@@ -59,7 +59,6 @@ export default function Invoices({ contractID }: { contractID: string }) {
             session?.tokens?.access || ""
         );
 
-
         if (response.id) {
             setInvoices([...invoices, response]);
 
@@ -122,7 +121,7 @@ export default function Invoices({ contractID }: { contractID: string }) {
             <Divider orientation="horizontal" marginBottom={"1rem"} />
             <Flex>
                 <UnorderedList style={{ marginLeft: "0", width: "100%" }}>
-                    {invoices?.length > 0 &&
+                    {invoices?.length > 0 ? (
                         invoices?.map((invoice: Invoice, index: number) => (
                             <>
                                 <ListItem
@@ -172,7 +171,10 @@ export default function Invoices({ contractID }: { contractID: string }) {
                                     invoiceKey={itemKey}
                                 />
                             </>
-                        ))}
+                        ))
+                    ) : (
+                        <Text>No Data</Text>
+                    )}
                 </UnorderedList>
             </Flex>
         </Box>

@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Header />
             <Flex
                 marginLeft={{ lg: "80px", sm: "30px" }}
-                marginTop={{ lg: "100px", sm: "30px" }}
+                marginTop={{ lg: "128px", sm: "30px" }}
                 marginRight={{ lg: "89px", sm: "30px" }}
                 marginBottom={"20px"}
             >

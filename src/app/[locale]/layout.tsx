@@ -4,6 +4,7 @@ import ChakraProviders from "@/hooks/ChakraProviders";
 import SessionProviders from "@/hooks/SessionProviders";
 import RecoilProviders from "@/hooks/RecoilProviders";
 import { Chatbot } from "@/components/chatbot/Chatbot";
+import ReduxProvider from "@/redux/reduxProvider";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -22,8 +23,10 @@ export default function RootLayout({
             <ChakraProviders>
                 <SessionProviders>
                     <RecoilProviders>
-                        <Chatbot />
-                        <body>{children}</body>
+                        <ReduxProvider>
+                            <Chatbot />
+                            <body>{children}</body>
+                        </ReduxProvider>
                     </RecoilProviders>
                 </SessionProviders>
             </ChakraProviders>

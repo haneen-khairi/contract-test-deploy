@@ -18,7 +18,6 @@ export default function Page() {
     const blogId = query.get("blogId")
     async function getBlogDetails(){
         const res = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}landingpage/blog/${blogId}`, {})
-        console.log("res in blog", res)
         setBlogDetails(res.blog)
         setRecentBlogs(res.related_blogs)
     }

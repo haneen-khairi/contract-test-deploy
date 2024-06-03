@@ -64,10 +64,8 @@ export default function InvoiceModal({
     const fetchData = async () => {
       try {
         const accessToken = session?.tokens?.access || ""; // Use the access token from the session
-        console.log("=== invoicde key", invoiceKey)
         const data = await getInvoiceByID(invoiceKey, accessToken);
         // const data = await getInvoiceByID("cf0c0342-2a97-42fc-ad47-befad23f86c7", accessToken);
-        console.log("=== data in invioices", data)
         // Check if response contains error
         if ("error" in data) {
           if (data.error === "Unauthorized") {

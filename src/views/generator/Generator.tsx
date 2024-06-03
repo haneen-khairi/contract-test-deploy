@@ -45,7 +45,7 @@ export default async function Generator() {
                     <Image
                         width={{ lg: "42px", md: "42px", sm: "16px" }}
                         display={{ base: "none", md: "inline-block" }}
-                        src={"/images/short-logo.svg"}
+                        src={"/images/core-logo.svg"}
                         alt={"brand logo"}
                     />
                     <BackButton />

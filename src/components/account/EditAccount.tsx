@@ -26,6 +26,8 @@ import { editAccountSchema } from "@/schemas";
 import { changePassword, postAccountData } from "@/actions/accounts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuth, setUser } from "@/redux/auth-slice";
 
 interface AccountData {
     user: {
@@ -45,7 +47,8 @@ interface AccountData {
 
 export default function EditAccount({ data }: { data: AccountData }) {
     const [accountData, setAccountData] = useState<AccountData>(data);
-    const { data: session } = useSession();
+    const { session } = useSelector(selectAuth);
+    const dispatch = useDispatch();
     const toast = useToast();
 
     const {
@@ -81,6 +84,15 @@ export default function EditAccount({ data }: { data: AccountData }) {
                 duration: 3000,
                 isClosable: false,
             });
+
+            dispatch(
+                setUser({
+                    user: {
+                        ...response?.user,
+                        name: `${response?.user?.first_name} ${response?.user?.last_name}`,
+                    },
+                })
+            );
         } else {
             toast({
                 description: `Failed to update account`,
@@ -263,7 +275,7 @@ export default function EditAccount({ data }: { data: AccountData }) {
                                     tabIndex={-1}
                                 />
                             </Box>
-                            <Box>
+                            <Box display="flex" flexDirection="column">
                                 <Flex gap={"16px"}>
                                     <Flex gap="12px" wrap="wrap">
                                         <FormControl
@@ -318,9 +330,7 @@ export default function EditAccount({ data }: { data: AccountData }) {
                                         >
                                             <InputGroup>
                                                 <Input
-                                                    {...register(
-                                                        "name"
-                                                    )}
+                                                    {...register("name")}
                                                     disabled={isSubmitting}
                                                     type="text"
                                                     placeholder="Company Name"
@@ -378,20 +388,21 @@ export default function EditAccount({ data }: { data: AccountData }) {
                                             placeholder="Enter new password"
                                             className="changePassword"
                                         />
-                                        <InputRightElement width="9.5rem">
-                                            <Button
-                                                h="1.75rem"
-                                                size="14px"
-                                                color={"#EE7C21"}
-                                                bg={"transparent"}
-                                                fontWeight={"500"}
-                                                onClick={handleChangePassword}
-                                            >
-                                                Change Password
-                                            </Button>
-                                        </InputRightElement>
                                     </InputGroup>
                                 </Flex>
+
+                                <Button
+                                    h="1.75rem"
+                                    size="14px"
+                                    color={"#EE7C21"}
+                                    bg={"transparent"}
+                                    fontWeight={"500"}
+                                    m="20px 20px auto auto"
+                                    p="5px 10px"
+                                    onClick={handleChangePassword}
+                                >
+                                    Change Password
+                                </Button>
                             </Box>
                         </Flex>
                     </form>

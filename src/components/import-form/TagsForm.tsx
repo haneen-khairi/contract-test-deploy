@@ -39,7 +39,6 @@ export default function TagsForm({ onClose, onSuccess, tags, keyAttachment, sess
                     value: tag.id,
                     label: tag.name
                 }));
-                console.log("=== response data ===", response)
                 setOptions(tagsOptions);
             } catch (error: any) {
                 console.error('Error fetching tags options:', error);

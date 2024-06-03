@@ -29,7 +29,6 @@ export default function PageDetails() {
         Authorization: `Bearer ${session?.tokens?.access || ""}`,
       }
     );
-    console.log("=== res ===", response);
     setTicket(response);
   }
   useEffect(() => {

@@ -11,7 +11,6 @@ export default async function Pricing() {
     const [plans, setPlans] = useState<Plan[]>([])
     async function getPlans() {
         const res = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}subscription/plans`, {})
-        console.log("res in plans", res)
         setPlans(res)
       } 
       useEffect(() => {

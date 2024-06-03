@@ -62,7 +62,7 @@ export default function LoginForm() {
     const onSubmit = async (data: z.infer<typeof loginSchema>) => {
         const response = await login(data);
 
-        if (response.message) {
+        if (response?.message) {
             setEmail(data.email);
             toast({
                 description: response.message,
@@ -104,7 +104,7 @@ export default function LoginForm() {
                             <Stack gap={"24px"}>
                                 <FormControl isInvalid={!!errors.email}>
                                     <InputGroup>
-                                        <InputLeftElement
+                                        {/* <InputLeftElement
                                             display={"contents"}
                                             pointerEvents="none"
                                         >
@@ -129,7 +129,7 @@ export default function LoginForm() {
                                             >
                                                 Email / Phone Number
                                             </label>
-                                        </InputLeftElement>
+                                        </InputLeftElement> */}
                                         <Input
                                             id="email"
                                             p={"0 16px"}
@@ -145,7 +145,7 @@ export default function LoginForm() {
                                             }
                                             isDisabled={isSubmitting}
                                             type="email"
-                                            placeholder="Example@mail.com"
+                                            placeholder="Enter email"
                                             h={"50px"}
                                         />
                                     </InputGroup>
@@ -155,56 +155,11 @@ export default function LoginForm() {
                                     </FormErrorMessage>
                                 </FormControl>
                                 <FormControl isInvalid={!!errors.password}>
-                                    {/* <InputGroup>
-                                        <InputLeftElement
-                                            display={"contents"}
-                                            pointerEvents="none"
-                                        >
-                                            <label
-                                                htmlFor="password"
-                                                style={{
-                                                    position: "absolute",
-                                                    top: "-6px",
-                                                    left: "8px",
-                                                    fontSize: "0.75rem",
-                                                    transform:
-                                                        "translate(5px, -3px)",
-                                                    transition: "all 0.2s",
-                                                    color: isPasswordFocused
-                                                        ? "#287AE0"
-                                                        : "gray",
-                                                    zIndex: "2",
-                                                    background: "white",
-                                                    padding: "0 4px",
-                                                    borderRadius: "8px",
-                                                }}
-                                            >
-                                                Password
-                                            </label>
-                                        </InputLeftElement>
-                                        <Input
-                                            id="password"
-                                            p={"0 16px"}
-                                            onChange={passwordOnChange}
-                                            name={passwordName}
-                                            ref={passwordRef}
-                                            onBlur={(e) => {
-                                                passwordOnBlur(e);
-                                                setIsPasswordFocused(false);
-                                            }}
-                                            onFocus={() =>
-                                                setIsPasswordFocused(true)
-                                            }
-                                            isDisabled={isSubmitting}
-                                            type="password"
-                                            placeholder="*******"
-                                            h={"50px"}
-                                        /> */}
-                                    {/* </InputGroup> */}
                                     <InputGroup size="md">
                                         <Input
                                             {...register("password")}
                                             pr="4.5rem"
+                                            h={"50px"}
                                             type={
                                                 showPassword
                                                     ? "text"

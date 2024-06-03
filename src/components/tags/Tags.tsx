@@ -152,7 +152,7 @@ export default function Tags({ contractID }: { contractID: string }) {
             <Divider orientation="horizontal" marginBottom={"1rem"} />
             <Flex>
                 <UnorderedList style={{ marginLeft: "0", width: "100%" }}>
-                    {tags.length > 0 &&
+                    {tags?.length > 0 &&
                         tags.map((tag: ContractTag, _index: number) => (
                             <ListItem
                                 key={tag.id}

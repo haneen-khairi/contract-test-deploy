@@ -22,7 +22,6 @@ export default function Page() {
     async function contactUsApi(data: any){
         const response = await CustomAxios(`post`, `${process.env.NEXT_PUBLIC_API_KEY}general/contact-us`, {}, data)
         if(response){
-            console.log("==== response of contact us ===", response)
             reset()
             toast({
                 description: "Message received successfully",

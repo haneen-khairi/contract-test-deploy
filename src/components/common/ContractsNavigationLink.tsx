@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
-interface NavigationLinkProps extends FlexProps  {
+interface NavigationLinkProps extends FlexProps {
     icon: string;
     text: string;
     link: string;
@@ -28,8 +28,12 @@ export default function AccordionNavigationLink({
 }: NavigationLinkProps) {
     const [isOpen, setIsOpen] = useState(true); // Initialize isOpen to true
     const pathname = usePathname();
-    const repoPage = pathname.includes("dashboard/contracts/repo");
-    const contractsPage = pathname.includes("dashboard/contracts") && !repoPage;
+
+    const currentPage = pathname.includes("dashboard/contracts/repo")
+        ? "repo"
+        : pathname.includes("dashboard/contracts/templates")
+        ? "templates"
+        : "contract";
 
     const handleToggleAccordion = () => {
         setIsOpen(!isOpen);
@@ -45,7 +49,7 @@ export default function AccordionNavigationLink({
                     >
                         <Flex
                             filter={
-                                contractsPage || repoPage
+                                ["contract", "repo"].includes(currentPage)
                                     ? FILTER_VALUE
                                     : "none"
                             }
@@ -78,10 +82,12 @@ export default function AccordionNavigationLink({
                     <Link
                         style={{
                             display: "block",
-                            color: contractsPage ? "white" : "black",
-                            backgroundColor: contractsPage
-                                ? "#EE7C21"
-                                : "white",
+                            color:
+                                currentPage === "contract" ? "white" : "black",
+                            backgroundColor:
+                                currentPage === "contract"
+                                    ? "#EE7C21"
+                                    : "white",
                             padding: "8px",
                             textAlign: "center",
                             marginTop: "12px",
@@ -100,8 +106,9 @@ export default function AccordionNavigationLink({
                     <Link
                         style={{
                             display: "block",
-                            color: repoPage ? "white" : "black",
-                            backgroundColor: repoPage ? "#EE7C21" : "white",
+                            color: currentPage === "repo" ? "white" : "black",
+                            backgroundColor:
+                                currentPage === "repo" ? "#EE7C21" : "white",
                             padding: "8px",
                             textAlign: "center",
                             marginTop: "12px",
@@ -120,8 +127,12 @@ export default function AccordionNavigationLink({
                     <Link
                         style={{
                             display: "block",
-                            color: repoPage ? "white" : "black",
-                            backgroundColor: repoPage ? "#EE7C21" : "white",
+                            color:
+                                currentPage === "templates" ? "white" : "black",
+                            backgroundColor:
+                                currentPage === "templates"
+                                    ? "#EE7C21"
+                                    : "white",
                             padding: "8px",
                             textAlign: "center",
                             marginTop: "12px",

@@ -57,11 +57,11 @@ export default function Files({ files }: FilesProps) {
     router.push(`/en/${fileData.id}`);
   };
 
-  const filteredFiles = searchInput
-    ? files.filter((file) =>
-        `${file.name}`.toLowerCase().includes(searchInput.toLowerCase())
-      )
-    : files;
+  // const filteredFiles = searchInput
+  //   ? files.filter((file) =>
+  //       `${file.name}`.toLowerCase().includes(searchInput.toLowerCase())
+  //     )
+  //   : files;
 
   return (
     <Grid
@@ -74,7 +74,7 @@ export default function Files({ files }: FilesProps) {
       }}
       autoFlow="row dense"
     >
-      {filteredFiles.map((file, idx) => {
+      {files.map((file, idx) => {
         return (
           <GridItem key={idx}>
             <Flex
@@ -137,7 +137,6 @@ export default function Files({ files }: FilesProps) {
           </GridItem>
         );
       })}
-      {files.length == 0 && <Box>Current path is empty</Box>}
     </Grid>
   );
 }

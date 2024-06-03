@@ -45,30 +45,10 @@ export default function PricingDetails({
 }) {
     const router = useRouter()
     const toast = useToast()
-    // const features = [
-    //     props.feature1,
-    //     props.feature2,
-    //     props.feature3,
-    //     props.feature4,
-    // ];
+
     const {data: session} = useSession()
-    // async function payment(paymentId: string){
-    //     const response = await CustomAxios(`post`, `https://eu-test.oppwa.com/v1/checkouts`,  {
-    //         // 'Authorization': `Bearer ${session?.tokens?.access || ""}`
-    //     } , {
-    //         'entityId': paymentId,
-    //         'amount':plan.price,
-    //         'currency':'SAR',
-    //         'paymentType': 'DB'
-    //         // token: session?.tokens?.access
-    //     })
-       
-    //     console.log("response response money", response)
-    // }
+ 
     async function subscribeToPlan(planId: any){
-        // if(session?.tokens?.access === undefined) {
-        //     return router.push('/en/login')
-        // }
         const response = await CustomAxios(`post`, `${process.env.NEXT_PUBLIC_API_KEY}subscription/subscribe`,  {
             // 'Authorization': `Bearer ${session?.tokens?.access || ""}`
         } , {
@@ -79,12 +59,10 @@ export default function PricingDetails({
             // window.open(process.env.NEXT_PUBLIC_PAYMENT_API, '*')
             onGetCheckoutId(response?.payment_token)
         }
-        console.log("subscribeToPlan response", response)
     }
     useEffect(() => {
         if (!session?.tokens?.access) {
             // router.push('/en/login')
-            console.log("session", session?.tokens?.access)
         }
       return () => {
         

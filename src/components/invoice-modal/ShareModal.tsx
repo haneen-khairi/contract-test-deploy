@@ -33,7 +33,6 @@ export default function ShareModal({
             });
             onCloseModalShare()
         }
-        console.log("first", response)
     }
     return <Modal onClose={() => onCloseModalShare()} isOpen={isOpen} isCentered>
         <ModalOverlay />

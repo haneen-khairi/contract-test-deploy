@@ -25,13 +25,20 @@ import { createCanvas } from "canvas";
 import "./ContractPreview.css";
 import { ContractStatus } from "@/components/contract-status";
 import { Summary } from "@/components/summary";
-import { DeleteIcon, DownloadIcon, EditIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import {
+    DeleteIcon,
+    DownloadIcon,
+    EditIcon,
+    ChevronDownIcon,
+} from "@chakra-ui/icons";
 import { Tags } from "@/components/tags";
 import { Approvals } from "@/components/approvals";
 import { Activities } from "@/components/activities";
 import { Relations } from "@/components/relations";
 import { Invoices } from "@/components/invoices";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { selectAuth } from "@/redux/auth-slice";
 type Permission =
     | "0001_owner"
     | "0002_viewer"
@@ -69,7 +76,8 @@ export default function ContractPreview({
     });
     const isMobile = useBreakpointValue({ sm: true, md: false, lg: false });
     const toast = useToast();
-    const { data: session } = useSession();
+    const { session } = useSelector(selectAuth);
+    // const { data: session } = useSession();
     const router = useRouter();
 
     const permittedRoles: {
@@ -165,10 +173,11 @@ export default function ContractPreview({
                     gap={{ base: "10px", sm: "0" }}
                     padding={{ sm: "0", md: "20px 10px", lg: "20px 40px" }}
                 >
+                    
                     <Image
-                         width={{ lg: "42px", md: "42px", sm: "16px" }}
+                        width={{ lg: "42px", md: "42px", sm: "16px" }}
                         display={{ base: "none", md: "inline-block" }}
-                        src={"/images/short-logo.svg"}
+                        src={"/images/core-logo.svg"}
                         alt={"brand logo"}
                     />
                     <BackButton />
@@ -180,10 +189,10 @@ export default function ContractPreview({
                         paddingLeft={{ sm: "4px", md: "6px", lg: "6px" }}
                         width={{ sm: "50%", md: "auto", lg: "auto" }}
                     >
-                        {document.name}
+                        {document?.name}
                     </Text>
                     <ContractStatus
-                        docStatus={document.status}
+                        docStatus={document?.status}
                         contractID={contractID}
                     />
                 </Box>
@@ -195,7 +204,7 @@ export default function ContractPreview({
                         alignItems: "center",
                     }}
                 >
-                     {isMobile ? (
+                    {isMobile ? (
                         <Menu>
                             <MenuButton
                                 as={IconButton}
@@ -207,8 +216,8 @@ export default function ContractPreview({
                                     icon={<DownloadIcon />}
                                     onClick={() =>
                                         downloadFile(
-                                            document.file,
-                                            document.name
+                                            document?.file,
+                                            document?.name
                                         )
                                     }
                                 >
@@ -235,7 +244,7 @@ export default function ContractPreview({
                             <Button
                                 variant="outline"
                                 onClick={() =>
-                                    downloadFile(document.file, document.name)
+                                    downloadFile(document?.file, document?.name)
                                 }
                             >
                                 Download
@@ -261,7 +270,7 @@ export default function ContractPreview({
                         order={{ sm: "2", md: "2" }}
                     >
                         <Summary
-                            summaryData={document.summary}
+                            summaryData={document?.summary}
                             contractID={contractID}
                         />
                         <Tags contractID={contractID} />
@@ -273,7 +282,7 @@ export default function ContractPreview({
                         prefetchMethod="GET"
                         documents={[
                             {
-                                uri: document.file,
+                                uri: document?.file,
                             },
                         ]}
                         config={{

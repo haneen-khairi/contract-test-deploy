@@ -3,6 +3,7 @@
 import { Box, Button } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 
 declare global {
     interface Window {
@@ -32,7 +33,6 @@ export const Chatbot = () => {
         },
         containerProps: {
             style: {
-                // optional: you can pass any style you want to the container
                 width: "400px",
                 height: "500px",
                 position: "fixed",
@@ -40,21 +40,34 @@ export const Chatbot = () => {
                 right: "0",
                 zIndex: "9999",
             },
-            className: "your class name", // if u are using tailwindcss or any className you can use the class name here
+            className: "your-class-name",
         },
     });
 
+    const [permissionGranted, setPermissionGranted] = useState(false);
+
     const openAiBot = () => {
+        // Request permissions here (example: Notification permission)
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                setPermissionGranted(true);
+                loadScript();
+            } else {
+                alert('Permission denied');
+            }
+        });
+    };
+
+    const loadScript = () => {
         if (session?.tokens?.access) {
             const initAiCoPilot = () => {
                 window.initAiCoPilot(
-                    getOptions(session?.tokens?.access, contractId)
+                    getOptions(session.tokens.access, contractId)
                 );
             };
 
-            const script = document.createElement("script");
-            script.src =
-                "https://unpkg.com/@openchatai/copilot-widget@latest/dist-embed/pilot.js";
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/@openchatai/copilot-widget@latest/dist-embed/pilot.js';
             script.onload = initAiCoPilot;
             document.body.appendChild(script);
         }
@@ -62,11 +75,7 @@ export const Chatbot = () => {
 
     return (
         <Box display="flex" position="fixed" left="60px" bottom="40px">
-            <Button
-                onClick={() => {
-                    openAiBot();
-                }}
-            >
+            <Button onClick={openAiBot}>
                 Ask AI
             </Button>
         </Box>

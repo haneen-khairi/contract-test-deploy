@@ -26,7 +26,6 @@ export default function Sidebar() {
             'Authorization': `Bearer ${session?.tokens?.access || ""}`
         })
         setSubscriptionInfo(response.contract)
-        console.log("subscriptionInfo response", response)
     }
     useEffect(() => {
         if (session?.tokens?.access) {
@@ -55,17 +54,13 @@ export default function Sidebar() {
             transition={{ duration: 0.3 }}
         >
             <Flex direction={"column"} gap={{ base: "20px", md: "24px" }}>
-                <Image
-                    w={"fit-content"}
-                    src={"/icons/dots.svg"}
-                    alt="feature-logo"
-                />
                 <Flex justifyContent={"space-between"} alignItems={"center"}>
                     <Image
-                        w={isCollapsed ? 0 : "118px"}
+                        w={isCollapsed ? 0 : "70px"}
                         src={"/images/core-logo.svg"}
                         alt="feature-logo"
                         transition={"linear 0.3s"}
+                        m="auto"
                     />
                     <IconButton
                         color={"#287AE0"}

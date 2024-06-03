@@ -14,20 +14,10 @@ export async function CustomAxios(
       headers,
       data: requestBody, // Include the request body for POST requests
     };
-    // console.log("request typee", requestType )
-    // // Make the HTTP request using Axios
-    // console.log("==== headers ====",headers)
-    // console.log("==== requestBody ===",requestBody)
     const response = await axios(config);
 
-    // console.log('header')
-    // console.log("=== response ====",response)
-    // console.log('header')
-    // Return the response data
     return response.data;
   } catch (error) {
-    // Handle errors if provided errorHandler function is defined
-
     return error;
   }
 }

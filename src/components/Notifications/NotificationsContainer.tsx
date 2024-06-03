@@ -21,7 +21,6 @@ function NotificationDropdown({
 
     const handleNotificationClick = (notification: any) => {
         // Handle notification action here
-        console.log(`Notification clicked: ${notification}`);
     };
 
     return (

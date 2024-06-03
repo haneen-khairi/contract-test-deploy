@@ -34,7 +34,6 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
       name: selectedFile?.name
     });
     // setSelectedFileUrl(fileResponse.data.key)
-    console.log("==== response ===", fileResponse)
     if(!fileResponse.data) return;
     // onClose()
     // onSuccess(fileResponse.data.key)
@@ -45,7 +44,6 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
 
     if (response.ok) {
       const jsonRes = await response.json();
-      console.log("=== jsonRes ===", jsonRes)
       toast({
         description: jsonRes.Message,
         position: "top",
@@ -75,23 +73,7 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
 
     setIsSubmitting(false);
   };
-  // async function getCustomTags(){
-  //   const responseTags = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}contract/upload/tags-options`, {
-  //     'Authoprization': `Bearer ${session?.tokens?.access}`
-  //   })
-  //   console.log("responseTags", responseTags)
-  // }
-  // useEffect(() => {
-  //   if(session?.tokens?.access){
-  //     getCustomTags()
-  //   }
 
-  //   return () => {
-      
-  //   }
-  // }, [session?.tokens?.access])
-  
-  // console.log("session", session?.tokens?.access)
   return <>
     <form style={{ display: "contents" }} ref={formRef} onSubmit={onSubmit}>
       <ModalBody py={{ lg: "37px", base: "25px" }}>

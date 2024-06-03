@@ -23,12 +23,10 @@ export default function Page() {
     }
     async function getBlogs(){
         const res = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}landingpage/blog`, {})
-        console.log("res in blogs", res)
         setBlogs(res.data)
     }
     async function getRecentBlogs(){
         const res = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}landingpage/blog?recent=true`, {})
-        console.log("res in recent blogs", res)
         setRecentBlogs(res.data)
     }
     useEffect(() => {

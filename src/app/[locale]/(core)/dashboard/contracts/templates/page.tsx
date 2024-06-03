@@ -19,7 +19,6 @@ export default function Page() {
         const response = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}contract/upload/templates`, {
             'Authorization': `Bearer ${session?.tokens?.access}`
         })
-        console.log("=== response ===", response)
         if(response){
             setContractsTemplates(response.data)
         }
@@ -28,7 +27,6 @@ export default function Page() {
         if(session?.tokens?.access){
             getContractsTemplates()
         }
-        console.log("session?.tokens?.access", session?.tokens?.access)
       return () => {
         
       }

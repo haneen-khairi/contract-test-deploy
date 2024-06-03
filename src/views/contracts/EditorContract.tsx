@@ -188,7 +188,6 @@ export default function EditorContract({
             'Authorization': `Bearer ${session?.tokens?.access}`
         })
         setClauses(response.data)
-        console.log("reposne", response)
     }
     useEffect(() => {
         setEditorLoaded(true);
@@ -199,7 +198,6 @@ export default function EditorContract({
                     contractID,
                     session?.tokens?.access || ""
                 );
-                console.log("🚀 ~ fetchFile ~ fileData:", fileData)
                 setDocuments(fileData);
             } catch (error) {
                 console.error("Error fetching file data:", error);
@@ -248,9 +246,9 @@ export default function EditorContract({
                     padding={{ sm: "0", md: "20px 10px", lg: "20px 40px" }}
                 >
                     <Image
-                        width={{ lg: "32px", md: "32px", sm: "16px" }}
+                        width={{ lg: "42px", md: "42px", sm: "16px" }}
                         display={{ base: "none", md: "inline-block" }}
-                        src={"/images/short-logo.svg"}
+                        src={"/images/core-logo.svg"}
                         alt={"brand logo"}
                     />
                     <BackButton />

@@ -1,5 +1,5 @@
 import { TermsView } from "@/views/terms";
 
-export default function Login() {
+export default function Terms() {
     return <TermsView />;
 }

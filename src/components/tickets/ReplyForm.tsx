@@ -35,20 +35,13 @@ export default function ReplyForm({ticketId , onClose , onSuccess }: TicketReply
     const toast = useToast();
 
     const onSubmit = async (e: any) => {
-        // e.preventDefault();
-        console.log("==== onsubmit data ====", e)
         setIsSubmitting(true);
         const formData = new FormData();
         formData.append("file", selectedFile!);
-        // formData.append("access", session?.tokens?.access || "");
-        // formData.append("ticket_type", e.ticket_type);
-        // formData.append("description", e.description);
-        // formData.append("subject", e.subject);
-
+        
         const fileResponse = await CustomAxios(`get`,`${process.env.NEXT_PUBLIC_API_KEY}ticket/generate_s3_path/reply`, {
             'Authorization': `Bearer ${session?.tokens?.access || ""}`
         }, formData);
-        console.log("==== response ===", fileResponse)
         const ticketBody = {
             content: e.content,
             attachments_list: [fileResponse?.data?.key]
@@ -57,7 +50,6 @@ export default function ReplyForm({ticketId , onClose , onSuccess }: TicketReply
             const response = await CustomAxios(`post`,`${process.env.NEXT_PUBLIC_API_KEY}ticket/reply/${ticketId}`, {
                 'Authorization': `Bearer ${session?.tokens?.access || ""}`
             }, ticketBody);
-            console.log("ticket file response ==== ", response)
             if (response.data === "The ticket replied successfully") {
                 toast({
                     description: response.data,

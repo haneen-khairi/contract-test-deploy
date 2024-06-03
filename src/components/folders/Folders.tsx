@@ -76,11 +76,11 @@ export default function Folders({ folders }: FoldersProps) {
     router.push(`${pathname}?${newQueryString}`);
   };
 
-  const filteredFolders = searchInput
-    ? folders.filter((folder) =>
-        `${folder.name}`.toLowerCase().includes(searchInput.toLowerCase())
-      )
-    : folders;
+  // const filteredFolders = searchInput
+  //   ? folders.filter((folder) =>
+  //       `${folder.name}`.toLowerCase().includes(searchInput.toLowerCase())
+  //     )
+  //   : folders;
 
   return (
     <Grid
@@ -93,7 +93,7 @@ export default function Folders({ folders }: FoldersProps) {
       }}
       autoFlow="row dense"
     >
-      {filteredFolders.map((folder, idx) => {
+      {folders.map((folder, idx) => {
         return (
           <GridItem key={idx}>
             <Flex
@@ -135,7 +135,6 @@ export default function Folders({ folders }: FoldersProps) {
           </GridItem>
         );
       })}
-      {folders.length == 0 && <Box>Current path is empty</Box>}
     </Grid>
   );
 }
