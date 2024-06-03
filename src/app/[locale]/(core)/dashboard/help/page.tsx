@@ -141,12 +141,12 @@ export default function Page() {
                 </form>
             </Heading>
         </div>
-        <Grid templateColumns='repeat(2, 1fr)' gap={'24px'} paddingY={"12px"}>
+        {tickets?.length > 0 ? <Grid templateColumns='repeat(2, 1fr)' gap={'24px'} paddingY={"12px"}>
 
-            {tickets?.length > 0 ? tickets?.map((ticket: Ticket) => <TicketsCard key={ticket.id} ticket={ticket} />) : <Box textAlign={"center"} padding={"12px"} fontSize={"18px"} fontWeight={"500"}>
-                    No Data To Display
-                </Box>}
-        </Grid>
+{tickets?.map((ticket: Ticket) => <TicketsCard key={ticket.id} ticket={ticket} />)}
+</Grid>: <Box width={'100%'} textAlign={"center"} padding={"12px"} fontSize={"18px"} fontWeight={"500"} bgColor="#fff">
+        <p>No Data To Display</p>
+    </Box>}
         <Card className='ticket__card'>
             <CardBody padding={'24px'}>
 
