@@ -13,5 +13,8 @@ const nextConfig = {
 
       return config;
     },
+    images : {
+      domains: ['fra1.digitaloceanspaces.com'],
+    }
   };
 module.exports = withNextIntl(nextConfig);
