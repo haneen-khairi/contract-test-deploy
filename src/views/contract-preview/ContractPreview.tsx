@@ -204,35 +204,41 @@ export default function ContractPreview({
                         alignItems: "center",
                     }}
                 >
-                    {isMobile ? (
-                        <Menu>
-                            <MenuButton
-                                as={IconButton}
-                                icon={<ChevronDownIcon />}
+                      {isMobile ? (
+                        <>
+                            <IconButton
+                                aria-label="Delete"
+                                icon={<DeleteIcon />}
+                                colorScheme="red"
                                 variant="outline"
+                                onClick={removeContract}
                             />
-                            <MenuList>
-                                <MenuItem
-                                    icon={<DownloadIcon />}
-                                    onClick={() =>
-                                        downloadFile(
-                                            document?.file,
-                                            document?.name
-                                        )
-                                    }
-                                >
-                                    Download
-                                </MenuItem>
-                                <MenuItem
-                                    icon={<DeleteIcon />}
-                                    onClick={removeContract}
-                                >
-                                    Delete
-                                </MenuItem>
-                            </MenuList>
-                        </Menu>
+                            <IconButton
+                                icon={<EditIcon />}
+                                aria-label={"Edit Contract"}
+                                colorScheme="red"
+                                variant="outline"
+                                onClick={() => router.push(`/en/${contractID}/editor`)}
+                            />
+                            <IconButton
+                                aria-label="Download"
+                                icon={<DownloadIcon />}
+                                variant="outline"
+                                onClick={() =>
+                                    downloadFile(document.file, document.name)
+                                }
+                            />
+                        </>
                     ) : (
                         <>
+                          <Button
+                                rightIcon={<EditIcon />}
+                                colorScheme="green"
+                                variant="outline"
+                                onClick={() => router.push(`/en/${contractID}/editor`)}
+                            >
+                                Edit Contract
+                            </Button>
                             <Button
                                 rightIcon={<DeleteIcon />}
                                 colorScheme="red"
