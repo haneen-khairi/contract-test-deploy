@@ -38,7 +38,7 @@ export default function TagsForm({ onClose, onSuccess, tags, keyAttachment, sess
                 const tagsOptions = data.map((tag: any) => ({
                     value: tag.id,
                     label: tag.name
-                }));
+                })); 
                 setOptions(tagsOptions);
             } catch (error: any) {
                 console.error('Error fetching tags options:', error);
@@ -166,7 +166,7 @@ export default function TagsForm({ onClose, onSuccess, tags, keyAttachment, sess
                     </div>
                     <Grid gap={'12px'} templateColumns='repeat(3, 1fr)'  mt={'12px'}>
                         {customTags?.length ? customTags.map(tag => (
-                            <Flex borderRadius={'30px'} border={'1px solid #E0E3E6'} gap={'8px'} padding={'6px 12px'} key={tag.uniqueId}>
+                            <Flex borderRadius={'30px'} border={'1px solid #E0E3E6'} gap={'8px'} justifyContent={'space-between'} alignItems={'center'} padding={'6px 12px'} key={tag.uniqueId}>
                                 <Text fontSize={'14px'} fontWeight={'600'}>{tag.name}</Text>
                                 <Button size="xs" onClick={() => handleRemoveCustomTag(tag.uniqueId)}>
                                     <CloseIcon />

@@ -32,8 +32,7 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
       'Authorization': `Bearer ${session?.tokens?.access || ""}`
     }, {
       name: selectedFile?.name
-    });
-    // setSelectedFileUrl(fileResponse.data.key)
+    }); 
     if(!fileResponse.data) return;
     // onClose()
     // onSuccess(fileResponse.data.key)
@@ -43,7 +42,7 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
     });
 
     if (response.ok) {
-      const jsonRes = await response.json();
+      const jsonRes = await response.json(); 
       toast({
         description: jsonRes.Message,
         position: "top",
@@ -72,8 +71,7 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
     }
 
     setIsSubmitting(false);
-  };
-
+  }; 
   return <>
     <form style={{ display: "contents" }} ref={formRef} onSubmit={onSubmit}>
       <ModalBody py={{ lg: "37px", base: "25px" }}>
