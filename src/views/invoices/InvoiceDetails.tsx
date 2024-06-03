@@ -27,6 +27,8 @@ import {
 import BackButton from "@/components/common/Back";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { pdfOptions } from "@/utils/pdfConvertOptions";
+
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import { createCanvas } from "canvas";
 // import "./ContractPreview.css";
@@ -43,6 +45,7 @@ import CKeditor from "@/components/CKeditor";
 import { CustomAxios } from "@/utils/CustomAxios";
 import ClausesItem from "@/components/clauses/ClausesItem";
 import { dateConverter } from "@/utils/functions";
+import generatePDF, { usePDF } from 'react-to-pdf';
 import Link from "next/link";
 
 
@@ -83,6 +86,7 @@ export default function InvoiceDetails({
     useEffect(() => {
         getInvoiceDetails()
     }, [invoiceId, session?.tokens?.access]);
+    const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
 
     const MyLoadingRenderer = () => {
         return (
@@ -128,16 +132,6 @@ export default function InvoiceDetails({
                         alt={"brand logo"}
                     />
                     <BackButton />
-                    {/* <Text
-                        fontSize={{ sm: "sm", md: "lg", lg: "lg" }}
-                        whiteSpace={"nowrap"}
-                        overflow={"hidden"}
-                        textOverflow={"ellipsis"}
-                        paddingLeft={{ sm: "4px", md: "6px", lg: "6px" }}
-                        width={{ sm: "50%", md: "auto", lg: "auto" }}
-                    >
-                        {document.name}
-                    </Text> */}
 
                 </Box>
                 <Box
@@ -153,19 +147,19 @@ export default function InvoiceDetails({
                         <>
                             <Button
                                 variant="outline"
-                            // onClick={() =>
-                            //     setShowClauses(!showClauses)
-                            // }
+                                onClick={() =>
+                                  generatePDF(targetRef, { ...pdfOptions, filename: `${invoiceId}` })
+    
+                                }
                             >
                                 Download
                             </Button>
                             <Button
-                                // rightIcon={<DeleteIcon />}
-                                // colorScheme="red"
                                 isDisabled={isLoading ? true : false}
                                 variant="prime"
                                 isLoading={isLoading}
-                            // onClick={removeContract}
+                                as={Link}
+                                href="/"
                             >
                                 View Website
 
@@ -175,19 +169,19 @@ export default function InvoiceDetails({
                         <>
                             <Button
                                 variant="outline"
-                            // onClick={() =>
-                            //     setShowClauses(!showClauses)
-                            // }
+                            onClick={() =>
+                              generatePDF(targetRef, { ...pdfOptions, filename: `${invoiceId}` })
+
+                            }
                             >
                                 Download
                             </Button>
                             <Button
-                           
                                 isDisabled={isLoading ? true : false}
                                 variant="prime"
                                 isLoading={isLoading}
-                                as={Link} 
-                            href="/"
+                                as={Link}
+                                href="/"
                             >
                                 View Website
 
@@ -197,7 +191,7 @@ export default function InvoiceDetails({
                     )}
                 </Box>
             </nav>
-            <Flex width={'100%'} padding={'24px'} justifyContent={'space-between'} bgColor={'transparent'} gap={'100px'} minHeight={'90vh'}>
+            <Flex ref={targetRef} width={'100%'} padding={'24px'} justifyContent={'space-between'} bgColor={'transparent'} gap={'100px'} minHeight={'90vh'}>
                 <Box width={'500px'} height={'fit-content'} bgColor={'#fff'} borderRadius={'12px 12px 0 0'} p={{ base: "24px 24px 28px 24px" }}>
                     <Flex justifyContent={'space-between'} mb={'8px'}>
                         <Text fontSize={"28px"} fontWeight={"600"}>
@@ -406,35 +400,6 @@ export default function InvoiceDetails({
                   </Box>
                 </Box>
             </Flex>
-            {/* <div className="ckeditor-container">
-                <CKeditor
-                    name="description"
-                    onChange={(data) => {
-                        // setData(data);
-                        setDocuments((prevData) => ({
-                            ...prevData,
-                            html_content: data
-                        }))
-                    }}
-                    value={document.html_content || ""}
-                    editorLoaded={editorLoaded}
-                />
-                {showClauses && <div className="clauses">
-                    <h3 className="clauses__header">Clauses List</h3>
-                    <Divider color={'#000000'} border={'1px solid #000000'} opacity={1} mb={'16px'} />
-                    <Flex direction="column" gap="16px" padding={'16px'}>
-                        {clauses?.length > 0 && clauses.map((clause: any) => <ClausesItem
-                            key={clause.id}
-                            content={clause.content}
-                            id={clause.id}
-                            onHandleClick={() => setDocuments((prevData) => ({
-                                ...prevData,
-                                html_content: prevData.html_content + clause.content
-                            }))} />
-                        )}
-                    </Flex>
-                </div>}
-            </div> */}
         </Box>
     );
 }
