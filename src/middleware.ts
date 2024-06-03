@@ -1,19 +1,9 @@
 import createMiddleware from "next-intl/middleware";
-import { withAuth } from "next-auth/middleware";
-import { NextRequest } from "next/server";
+import { withAuth } from 'next-auth/middleware';
+import { NextRequest } from 'next/server';
 
-const locales = ["en", "ar"];
-const publicPages = [
-    "/",
-    "terms",
-    "/pricing",
-    "/blogs",
-    "/contact_us",
-    "/login",
-    "/register",
-    "/forget-password",
-    "/invoice/[id]",
-];
+const locales = ['en', 'ar'];
+const publicPages = ['/', '/pricing', '/blogs', '/contact_us', '/login', "/register", "/forget-password", '/[id]/invoice'];
 
 const intlMiddleware = createMiddleware({
     locales,
@@ -26,18 +16,18 @@ const authMiddleware = withAuth(
     },
     {
         callbacks: {
-            authorized: ({ token }) => token != null,
+            authorized: ({ token }) => token != null
         },
         pages: {
-            signIn: "/en/login",
-        },
+            signIn: '/en/login'
+        }
     }
 );
 
 export default function middleware(req: NextRequest) {
     const publicPathnameRegex = RegExp(
-        `^(/(${locales.join("|")}))?(${publicPages.join("|")})?/?$`,
-        "i"
+        `^(/(${locales.join('|')}))?(${publicPages.join('|')})?/?$`,
+        'i'
     );
     const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 

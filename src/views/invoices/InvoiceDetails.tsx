@@ -43,6 +43,7 @@ import CKeditor from "@/components/CKeditor";
 import { CustomAxios } from "@/utils/CustomAxios";
 import ClausesItem from "@/components/clauses/ClausesItem";
 import { dateConverter } from "@/utils/functions";
+import Link from "next/link";
 
 
 // import saveIcon from "/icons/save-icon.svg";
@@ -181,12 +182,12 @@ export default function InvoiceDetails({
                                 Download
                             </Button>
                             <Button
-                                // rightIcon={<DeleteIcon />}
-                                // colorScheme="red"
+                           
                                 isDisabled={isLoading ? true : false}
                                 variant="prime"
                                 isLoading={isLoading}
-                            // onClick={removeContract}
+                                as={Link} 
+                            href="/"
                             >
                                 View Website
 
