@@ -84,6 +84,7 @@ export default function Page() {
                     <Divider orientation="horizontal" />
                     <TemplateForm onClose={()=> onCloseModal()} onSuccess={() => {
                         onCloseModal()
+                        getContractsTemplates()
                     }} />
                 </ModalContent>
             </Modal>

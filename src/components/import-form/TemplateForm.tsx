@@ -12,7 +12,7 @@ import ArrowIconContractImport from './ArrowIconContractImport';
 
 interface ImportFormProps {
   onClose: () => void;
-  onSuccess: (url: string) => void;
+  onSuccess: () => void;
 }
 
 export default function TemplateForm({ onClose, onSuccess }: ImportFormProps) {
@@ -24,14 +24,13 @@ export default function TemplateForm({ onClose, onSuccess }: ImportFormProps) {
   async function uploadConfirmation(keyAttachment: string) {
     try {
         const fileResponse = await CustomAxios(`post`,`${process.env.NEXT_PUBLIC_API_KEY}contract/upload/template_confirmation`, {
-          headers: {
             'Authorization': `Bearer ${session?.tokens?.access || ""}`
-          }
+          
         }, {
           key: keyAttachment,
         });
 
-        if (fileResponse.data) {
+        if (fileResponse.url) {
             toast({
                 description: "Template created successfully",
                 position: "top",
@@ -40,6 +39,7 @@ export default function TemplateForm({ onClose, onSuccess }: ImportFormProps) {
                 isClosable: false,
             });
             onClose();
+            onSuccess()
         }
     } catch (error) {
         console.error('Error uploading confirmation:', error);
