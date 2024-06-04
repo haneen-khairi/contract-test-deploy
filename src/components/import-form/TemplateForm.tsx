@@ -33,7 +33,7 @@ export default function TemplateForm({ onClose, onSuccess }: ImportFormProps) {
 
         if (fileResponse.data) {
             toast({
-                description: "Contract created successfully and assigned to tags",
+                description: "Template created successfully",
                 position: "top",
                 status: "success",
                 duration: 3000,
@@ -44,7 +44,7 @@ export default function TemplateForm({ onClose, onSuccess }: ImportFormProps) {
     } catch (error) {
         console.error('Error uploading confirmation:', error);
         toast({
-            description: "Failed to create contract. Please try again later.",
+            description: "Failed to create Template. Please try again later.",
             status: "error",
             duration: 5000,
             isClosable: true,
