@@ -126,7 +126,10 @@ export default function InvoiceModal({
               <Text fontSize={"28px"} fontWeight={"600"}>
                 {"Invoice" || "N/A"}
               </Text> 
-              <img src={invoiceDetails?.logo || ""} style={{ width: '50px' }} alt="" />
+             {invoiceDetails?.logo && (
+  <img src={invoiceDetails.logo} style={{ width: '50px' }} alt="" />
+)}
+
 
             </Flex>
             <Flex justifyContent={'space-between'} alignItems={'center'} mb={'4px'}>
