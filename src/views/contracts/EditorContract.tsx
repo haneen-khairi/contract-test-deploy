@@ -198,6 +198,8 @@ export default function EditorContract({
                     contractID,
                     session?.tokens?.access || ""
                 );
+                console.log("🚀 ~ fetchFile ~ fileData:", fileData)
+
                 setDocuments(fileData);
             } catch (error) {
                 console.error("Error fetching file data:", error);

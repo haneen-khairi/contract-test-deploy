@@ -1,6 +1,6 @@
 "use client"
 import React, { Suspense, useEffect, useState } from "react";
-import { Box, Flex, Grid } from "@chakra-ui/react";
+import { Box, Divider,Text, Flex, Grid, Modal, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 
 import dynamic from "next/dynamic";
 import TableLoading from "@/components/common/TableLoading";
@@ -9,11 +9,17 @@ import ArrowRight from "./ArrowRight";
 import Link from "next/link";
 import { CustomAxios } from "@/utils/CustomAxios";
 import { useSession } from "next-auth/react";
+import TemplateForm from "@/components/import-form/TemplateForm";
 
 
 
 export default function Page() {
     const {data: session} = useSession()
+    const {
+        isOpen: isOpenModal,
+        onOpen: onOpenModal,
+        onClose: onCloseModal,
+    } = useDisclosure();
     const [contractsTemplates, setContractsTemplates] = useState<any[]>([])
     async function getContractsTemplates() {
         const response = await CustomAxios(`get`, `${process.env.NEXT_PUBLIC_API_KEY}contract/upload/templates`, {
@@ -36,7 +42,7 @@ export default function Page() {
         <Suspense fallback={<TableLoading tr={5} td={6} con={false} />}>
             <Grid templateColumns='repeat(4, 1fr)' columnGap={'50px'} rowGap={'70px'} mb={'16px'}>
                 {/* <Contracts /> */}
-                <div className="contract__card">
+                <div onClick={()=> onOpenModal()} className="contract__card">
                     <div className="contract__card--cover">
                         <Flex as={Link} href={`/en/dashboard/contracts/templates/add`} gap={'8px'} alignItems={'center'} justifyContent={'center'} height={'100%'}>
                             <PlusIcon />
@@ -51,7 +57,7 @@ export default function Page() {
                     <div className="contract__card--cover">
                         <p className="contract__card--cover-type">A4</p>
                         <span className="contract__card--cover-text">Contract</span>
-                        <Flex as={Link} href={`/en/${contract.id}`} gap={'8px'} alignItems={'center'} justifyContent={'center'} className="contract__card--cover-btn">
+                        <Flex as={Link} href={`/en/${contract.id}/template`} gap={'8px'} alignItems={'center'} justifyContent={'center'} className="contract__card--cover-btn">
                             <p>View this Template</p>
                             <ArrowRight />
                         </Flex>
@@ -62,6 +68,25 @@ export default function Page() {
                     </div>
                 </div>)}
             </Grid>
+            
+            <Modal onClose={onCloseModal} isOpen={isOpenModal} isCentered>
+                <ModalOverlay />
+                <ModalContent borderRadius={"16px"} w={"95%"} maxW={"520px"}>
+                    <ModalHeader>
+                        <Text fontSize={"18"} fontWeight={"700"}>
+                            Import Template
+                        </Text>
+                        <Text fontSize={"13"} fontWeight={"400"}>
+                            Select a file to import your template
+                        </Text>
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <Divider orientation="horizontal" />
+                    <TemplateForm onClose={()=> onCloseModal()} onSuccess={() => {
+                        onCloseModal()
+                    }} />
+                </ModalContent>
+            </Modal>
         </Suspense>
     </Box>
 }
