@@ -63,10 +63,12 @@ export default function InvoiceModal({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accessToken = session?.tokens?.access || ""; 
+        const accessToken = session?.tokens?.access || ""; // Use the access token from the session
         console.log("=== invoicde key", invoiceKey)
         const data = await getInvoiceByID(invoiceKey, accessToken);
+        // const data = await getInvoiceByID("cf0c0342-2a97-42fc-ad47-befad23f86c7", accessToken);
         console.log("=== data in invioices", data)
+        // Check if response contains error
         if ("error" in data) {
           if (data.error === "Unauthorized") {
             toast({
@@ -125,11 +127,10 @@ export default function InvoiceModal({
             <Flex justifyContent={'space-between'} mb={'8px'}>
               <Text fontSize={"28px"} fontWeight={"600"}>
                 {"Invoice" || "N/A"}
-              </Text> 
-             {invoiceDetails?.logo && (
+              </Text>
+                {invoiceDetails?.logo && (
   <img src={invoiceDetails.logo} style={{ width: '50px' }} alt="" />
 )}
-
 
             </Flex>
             <Flex justifyContent={'space-between'} alignItems={'center'} mb={'4px'}>
