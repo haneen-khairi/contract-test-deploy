@@ -37,7 +37,7 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import generatePDF, { usePDF } from 'react-to-pdf';
-import ShareModal from "./ShareModal";
+import Link from "next/link";
 
 type InvoiceDetailsProps = {
   isOpen: boolean;
