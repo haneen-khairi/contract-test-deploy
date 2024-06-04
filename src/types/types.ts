@@ -159,6 +159,7 @@ export interface InvoiceSummary {
     tax: string;
     discount: string;
     items: InvoiceItem[];
+    logo?: string;
 }
 
 export interface InvoiceSummaryResponse {
