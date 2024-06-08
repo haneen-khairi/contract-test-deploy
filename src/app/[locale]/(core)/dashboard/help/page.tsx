@@ -13,7 +13,7 @@ export default function Page() {
     const {
         register,
         handleSubmit,
-        formState: {errors},
+        formState: { errors },
         reset
     } = useForm({
         mode: "onChange"
@@ -37,12 +37,12 @@ export default function Page() {
         // console.log("=== res ===", JSON.stringify(response[0]));
         setTickets(response);
     }
-    function onSearch(data: any){
+    function onSearch(data: any) {
         console.log("🚀 ~ onSearch ~ data:", data)
-        handleSearch(data.subject || "" , data.status)
+        handleSearch(data.subject || "", data.status)
     }
     useEffect(() => {
-        if(session?.tokens?.access){
+        if (session?.tokens?.access) {
             getTickets()
         }
 
@@ -50,7 +50,7 @@ export default function Page() {
 
         }
     }, [session?.tokens?.access])
-    const handleSearch = (searchName: any , searchStatus: string = "") => {
+    const handleSearch = (searchName: any, searchStatus: string = "") => {
         const filtered = tickets.filter((ticket: Ticket) => {
             const nameMatch = searchName === "" || ticket.subject.toLowerCase().includes(searchName.toLowerCase());
             const statusMatch = searchStatus === "" || ticket.status === searchStatus;
@@ -83,7 +83,7 @@ export default function Page() {
                     <Button variant={'prime'} onClick={onOpenModal} color={'#fff'} width={'226px'}>New Ticket</Button>
                 </Flex>
                 <form onSubmit={handleSubmit(onSearch)}>
-                    <Flex justifyContent={'space-between'}>
+                    <Flex className='ticket__form' justifyContent={'space-between'}>
                         <FormControl flexGrow="1" w={"220px"}>
                             <Input
                                 type="text"
@@ -112,7 +112,7 @@ export default function Page() {
                                     <option value={"opened"}>
                                         {"Opened"}
                                     </option>
-                                    
+
                                 </Select>
                             </FormControl>
                             <Button
@@ -141,12 +141,12 @@ export default function Page() {
                 </form>
             </Heading>
         </div>
-        {tickets?.length > 0 ? <Grid templateColumns='repeat(2, 1fr)' gap={'24px'} paddingY={"12px"}>
+        {tickets?.length > 0 ? <Grid className='ticket__grid' templateColumns='repeat(2, 1fr)' gap={'24px'} paddingY={"12px"}>
 
-{tickets?.map((ticket: Ticket) => <TicketsCard key={ticket.id} ticket={ticket} />)}
-</Grid>: <Box width={'100%'} textAlign={"center"} padding={"12px"} fontSize={"18px"} fontWeight={"500"} bgColor="#fff">
-        <p>No Data To Display</p>
-    </Box>}
+            {tickets?.map((ticket: Ticket) => <TicketsCard key={ticket.id} ticket={ticket} />)}
+        </Grid> : <Box width={'100%'} textAlign={"center"} padding={"12px"} fontSize={"18px"} fontWeight={"500"} bgColor="#fff">
+            <p>No Data To Display</p>
+        </Box>}
         <Card className='ticket__card'>
             <CardBody padding={'24px'}>
 

@@ -18,6 +18,7 @@ import FileInput from "../common/FileInput";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { CustomAxios } from "@/utils/CustomAxios";
+import { isValid } from "date-fns";
 
 interface TicketReplyFormProps {
     ticketId: number,
@@ -26,7 +27,7 @@ interface TicketReplyFormProps {
 }
 
 export default function ReplyForm({ticketId , onClose , onSuccess }: TicketReplyFormProps) {
-    const { handleSubmit, register, reset } = useForm();
+    const { handleSubmit, register, reset, formState: {isValid} } = useForm();
 
     const formRef = useRef<HTMLFormElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -147,7 +148,7 @@ export default function ReplyForm({ticketId , onClose , onSuccess }: TicketReply
                 </Button>
                 <Button
                     variant={"prime"}
-                    isDisabled={!selectedFile}
+                    isDisabled={isValid ? false : true}
                     isLoading={isSubmitting}
                     type="submit"
                     fontWeight={"400"}

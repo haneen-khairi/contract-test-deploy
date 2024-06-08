@@ -339,6 +339,16 @@ body {
       color: #287AE0;
     }
   }
+  &__form{
+    @media screen and (max-width: 1024px) {
+      display: block;
+    }
+  }
+  &__grid{
+    @media screen and (max-width: 1024px) {
+      grid-template-columns: repeat(1, 1fr)
+    }
+  }
 
   &__details {
     border-radius: 16px;

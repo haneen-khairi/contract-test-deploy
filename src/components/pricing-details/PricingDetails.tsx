@@ -51,10 +51,11 @@ export default function PricingDetails({
     async function subscribeToPlan(planId: any){
         const response = await CustomAxios(`post`, `${process.env.NEXT_PUBLIC_API_KEY}subscription/subscribe`,  {
             // 'Authorization': `Bearer ${session?.tokens?.access || ""}`
-        } , {
-            plan_id: planId,
-            // token: session?.tokens?.access
-        })
+            } , {
+                plan_id: planId,
+                // token: session?.tokens?.access
+                })
+            console.log("🚀 ~ subscribeToPlan ~ response:", response)
         if(response){
             // window.open(process.env.NEXT_PUBLIC_PAYMENT_API, '*')
             onGetCheckoutId(response?.payment_token)
@@ -149,7 +150,10 @@ export default function PricingDetails({
                     variant="outline"
                     onClick={() =>{
                         if(session?.tokens?.access){
-                            if(plan.price >= "0.00"){
+                            console.log("🚀 ~ subscribeToPlan ~ price:", parseInt(plan.price))
+                            if(parseInt(plan.price) > 0){
+                                subscribeToPlan(plan.id)
+                            }else{
                                 toast({
                                     description: "You are already on free plan",
                                     position: "top",
@@ -157,8 +161,6 @@ export default function PricingDetails({
                                     duration: 3000,
                                     isClosable: false,
                                 })
-                            }else{
-                                subscribeToPlan(plan.id)
                             }
                         }else{
                             router.push(`/en/login`)
