@@ -70,6 +70,8 @@ export default function TagsForm({ onClose, onSuccess, tags, keyAttachment, sess
     }
 
     async function uploadConfirmation(tagsMergedToArrayOfString: any[]) {
+        if(!keyAttachment) return 
+        
         try {
             const fileResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}contract/upload/confirmation`, {
                 key: keyAttachment,

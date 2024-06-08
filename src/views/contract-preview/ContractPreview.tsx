@@ -173,7 +173,6 @@ export default function ContractPreview({
                     gap={{ base: "10px", sm: "0" }}
                     padding={{ sm: "0", md: "20px 10px", lg: "20px 40px" }}
                 >
-                    
                     <Image
                         width={{ lg: "42px", md: "42px", sm: "16px" }}
                         display={{ base: "none", md: "inline-block" }}
@@ -204,7 +203,7 @@ export default function ContractPreview({
                         alignItems: "center",
                     }}
                 >
-                      {isMobile ? (
+                    {isMobile ? (
                         <>
                             <IconButton
                                 aria-label="Delete"
@@ -218,7 +217,9 @@ export default function ContractPreview({
                                 aria-label={"Edit Contract"}
                                 colorScheme="red"
                                 variant="outline"
-                                onClick={() => router.push(`/en/${contractID}/editor`)}
+                                onClick={() =>
+                                    router.push(`/en/${contractID}/editor`)
+                                }
                             />
                             <IconButton
                                 aria-label="Download"
@@ -231,11 +232,13 @@ export default function ContractPreview({
                         </>
                     ) : (
                         <>
-                          <Button
+                            <Button
                                 rightIcon={<EditIcon />}
                                 colorScheme="green"
                                 variant="outline"
-                                onClick={() => router.push(`/en/${contractID}/editor`)}
+                                onClick={() =>
+                                    router.push(`/en/${contractID}/editor`)
+                                }
                             >
                                 Edit Contract
                             </Button>

@@ -21,8 +21,8 @@ import Link from "next/link"; // Import Link from next/link
 import { CgMenuLeftAlt } from "react-icons/cg";
 import React, { useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { selectAuth } from "@/redux/auth-slice";
-import { useSelector } from "react-redux";
+import { clearSession, selectAuth } from "@/redux/auth-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const navItems = [
     { text: "Home", href: "/en/" },
@@ -33,6 +33,7 @@ const navItems = [
 
 export default function Header() {
     //   const t = useTranslations("Index");
+    const dispatch = useDispatch();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { session } = useSelector(selectAuth);
     const renderNavItem = (item: NavigationItem) => (
@@ -89,7 +90,9 @@ export default function Header() {
                     </Button>
                 ) : (
                     <Button
-                        onClick={() => signOut()}
+                        onClick={() => {
+                            dispatch(clearSession())
+                            signOut()}}
                         p={{ sm: "12px", md: "8px 28px" }}
                         variant={"prime"}
                     >

@@ -39,13 +39,13 @@ import { useEffect, useState } from "react";
 import NotificationDropdown from "../Notifications/NotificationsContainer";
 import { CustomAxios } from "@/utils/CustomAxios";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { selectAuth } from "@/redux/auth-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { clearSession, selectAuth } from "@/redux/auth-slice";
 
 export default function Header() {
     const { session } = useSelector(selectAuth);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [selectedFileUrl, setSelectedFileUrl] = useState<string>("");
+    const [selectedFileKey, setSelectedFileKey] = useState<string>("");
     const [notifications, setNotifications] = useState<INotification[]>([]);
 
     const {
@@ -55,6 +55,7 @@ export default function Header() {
     } = useDisclosure();
 
     const router = useRouter();
+    const dispatch = useDispatch();
     const {
         isOpen: isCreateModalOpen,
         onOpen: onOpenModalTags,
@@ -144,6 +145,7 @@ export default function Header() {
                                 <MenuItem
                                     onClick={() => {
                                         signOut();
+                                        dispatch(clearSession());
                                     }}
                                     color={"#e6584a"}
                                 >
@@ -169,10 +171,8 @@ export default function Header() {
                     <ModalCloseButton />
                     <Divider orientation="horizontal" />
                     <ImportForm
-                        onSuccess={(url) => {
-                            setTimeout(() => {
-                                setSelectedFileUrl(url);
-                            }, 200);
+                        onSuccess={(key) => {
+                            setSelectedFileKey(key);
                             onOpenModalTags();
                         }}
                         onClose={onCloseModal}
@@ -216,8 +216,8 @@ export default function Header() {
 
                     <TagsForm
                         sessionKey={session?.tokens?.access || ""}
-                        keyAttachment={selectedFileUrl || ""}
                         tags={[]}
+                        keyAttachment={selectedFileKey}
                         onClose={onCloseModalTags}
                     />
                 </ModalContent>

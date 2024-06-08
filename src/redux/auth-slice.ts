@@ -23,6 +23,9 @@ export const authSlice = createSlice({
         ) => {
             state.session = session;
         },
+        clearSession: (state: InitialAuthStateProps) => {
+            state.session = null;
+        },
         setUser: (
             state: InitialAuthStateProps,
             {
@@ -41,7 +44,7 @@ export const authSlice = createSlice({
     },
 });
 
-export const { setSession, setUser } = authSlice.actions;
+export const { setSession, setUser, clearSession } = authSlice.actions;
 
 export const selectAuth = (state: { auth: InitialAuthStateProps }) =>
     state.auth;
