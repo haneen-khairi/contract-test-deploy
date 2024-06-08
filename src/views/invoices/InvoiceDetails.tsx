@@ -2,6 +2,8 @@
 
 import { getContractByID, deleteContract } from "@/actions/contracts";
 import { downloadFile } from "@/actions/download";
+import generatePDF, { usePDF } from 'react-to-pdf';
+
 import {
     Box,
     Text,
@@ -27,22 +29,13 @@ import {
 import BackButton from "@/components/common/Back";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import { pdfOptions } from "@/utils/pdfConvertOptions";
 import { createCanvas } from "canvas";
-// import "./ContractPreview.css";
-import { ContractStatus } from "@/components/contract-status";
-import { Summary } from "@/components/summary";
-import { DeleteIcon, DownloadIcon, EditIcon } from "@chakra-ui/icons";
-import { Tags } from "@/components/tags";
-import { Approvals } from "@/components/approvals";
-import { Activities } from "@/components/activities";
-import { Relations } from "@/components/relations";
-import { Invoices } from "@/components/invoices";
 import { useRouter } from "next/navigation";
-import CKeditor from "@/components/CKeditor";
 import { CustomAxios } from "@/utils/CustomAxios";
-import ClausesItem from "@/components/clauses/ClausesItem";
 import { dateConverter } from "@/utils/functions";
+import Link from "next/link";
+import { DownloadIcon, ViewIcon } from "@chakra-ui/icons";
 
 
 // import saveIcon from "/icons/save-icon.svg";
@@ -82,6 +75,7 @@ export default function InvoiceDetails({
     useEffect(() => {
         getInvoiceDetails()
     }, [invoiceId, session?.tokens?.access]);
+    const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
 
     const MyLoadingRenderer = () => {
         return (
@@ -150,43 +144,39 @@ export default function InvoiceDetails({
                 >
                     {isMobile ? (
                         <>
-                            <Button
-                                variant="outline"
-                            // onClick={() =>
-                            //     setShowClauses(!showClauses)
-                            // }
-                            >
-                                Download
-                            </Button>
-                            <Button
-                                // rightIcon={<DeleteIcon />}
-                                // colorScheme="red"
-                                isDisabled={isLoading ? true : false}
-                                variant="prime"
-                                isLoading={isLoading}
-                            // onClick={removeContract}
-                            >
-                                View Website
-
-                            </Button>
+                            <IconButton
+                            aria-label="download"
+                              icon={<DownloadIcon />}
+                                // variant="outline"
+                                onClick={() =>
+                                  generatePDF(targetRef, { ...pdfOptions, filename: `${invoiceId}` })
+    
+                                }
+                            />
+                            <IconButton
+                            aria-label="view"
+                                icon={<ViewIcon />}
+                                as={Link}
+                                href="/"
+                            />
                         </>
                     ) : (
                         <>
                             <Button
                                 variant="outline"
-                            // onClick={() =>
-                            //     setShowClauses(!showClauses)
-                            // }
+                            onClick={() =>
+                              generatePDF(targetRef, { ...pdfOptions, filename: `${invoiceId}` })
+
+                            }
                             >
                                 Download
                             </Button>
                             <Button
-                                // rightIcon={<DeleteIcon />}
-                                // colorScheme="red"
                                 isDisabled={isLoading ? true : false}
                                 variant="prime"
                                 isLoading={isLoading}
-                            // onClick={removeContract}
+                                as={Link}
+                                href="/"
                             >
                                 View Website
 
@@ -196,8 +186,8 @@ export default function InvoiceDetails({
                     )}
                 </Box>
             </nav>
-            <Flex width={'100%'} padding={'24px'} justifyContent={'space-between'} bgColor={'transparent'} gap={'100px'} minHeight={'90vh'}>
-                <Box width={'500px'} height={'fit-content'} bgColor={'#fff'} borderRadius={'12px 12px 0 0'} p={{ base: "24px 24px 28px 24px" }}>
+            <Flex ref={targetRef} className="invoice__body" width={'100%'} padding={'24px'} justifyContent={'space-between'} bgColor={'transparent'} gap={'100px'} minHeight={'90vh'}>
+                <Box width={'500px'} className="invoice__body--right" height={'fit-content'} bgColor={'#fff'} borderRadius={'12px 12px 0 0'} p={{ base: "24px 24px 28px 24px" }}>
                     <Flex justifyContent={'space-between'} mb={'8px'}>
                         <Text fontSize={"28px"} fontWeight={"600"}>
                             {"Invoice" || "N/A"}
@@ -222,7 +212,7 @@ export default function InvoiceDetails({
                         </Text>
                     </Flex>
                 </Box>
-                <Box width={'500px'} bgColor={'#fff'} borderRadius={'12px 12px 0 0'} p={{ base: "24px 24px 28px 24px" }}>
+                <Box width={'500px'} className="invoice__body--left" bgColor={'#fff'} borderRadius={'12px 12px 0 0'} p={{ base: "24px 24px 28px 24px" }}>
                   <Flex  justifyContent={'space-between'} mb={'32px'} className="">
                     <div className="">
                       <Text fontSize={'10px'} fontWeight={'600'}>Invoice #</Text>

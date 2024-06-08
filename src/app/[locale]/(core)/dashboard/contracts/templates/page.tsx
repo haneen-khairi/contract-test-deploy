@@ -40,7 +40,7 @@ export default function Page() {
     
     return <Box padding={'24px'}>
         <Suspense fallback={<TableLoading tr={5} td={6} con={false} />}>
-            <Grid templateColumns='repeat(4, 1fr)' columnGap={'50px'} rowGap={'70px'} mb={'16px'}>
+            <Grid templateColumns='repeat(4, 1fr)' className="contract__grid" columnGap={'50px'} rowGap={'70px'} mb={'16px'}>
                 {/* <Contracts /> */}
                 <div onClick={()=> onOpenModal()} className="contract__card">
                     <div className="contract__card--cover">

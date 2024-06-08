@@ -72,9 +72,9 @@ export default function PageDetails() {
             </Flex>
             <h5 className="ticket__details--header">{ticket?.subject}</h5>
             <p className="ticket__details--paragraph">{ticket?.description}</p> 
-            <div className="ticket__details--alert">
+            {ticket?.attachments?.length  ? <div className="ticket__details--alert">
               <a href={ticket?.attachments?.[0]}>{ticket?.attachments?.[0]}</a>
-            </div>
+            </div> : ""}
             <Divider size={'3px'} opacity={1} marginY={'25px'} color={'#000000'} />
             {ticket?.replies !== undefined && ticket?.replies?.length > 0 && (
                 ticket.replies.map((reply) => <div key={reply.id} className="">
@@ -86,6 +86,9 @@ export default function PageDetails() {
                 </h5>
                 
                 <p className="ticket__details--paragraph">{reply?.content}</p>
+                {reply?.attachments?.length  ? <div className="ticket__details--alert">
+                  <a href={reply?.attachments?.[0]}>{reply?.attachments?.[0]}</a>
+                </div> : ""}
                 <Divider size={'3px'} opacity={1} marginY={'25px'} color={'#000000'} />
                 </div>)
             )}

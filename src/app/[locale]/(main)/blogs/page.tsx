@@ -36,7 +36,7 @@ export default function Page() {
     return <section className=''>
         <section className="blogs__section">
             <h2 className="blogs__header">Recent blog posts</h2>
-            <Grid templateColumns='repeat(2, 1fr)' rowGap={'32px'} columnGap={'48px'}>
+            <Grid templateColumns='repeat(2, 1fr)' className='recent_blogs--grid' rowGap={'32px'} columnGap={'48px'} >
                 {blogs?.length > 0 && recentBlogs?.filter((_, index) => index === 0).map((blog) => <BlogCard key={blog.id} blog={blog} />)}
                 <div>
                     {blogs?.length > 0 && recentBlogs?.slice(1).map((blog) => <BlogCard reverse key={blog.id} blog={blog} />)}
@@ -46,7 +46,7 @@ export default function Page() {
         </section>
         <section className="blogs__section">
             <h2 className="blogs__header">All blogs</h2>
-            <Grid templateColumns='repeat(3, 1fr)' rowGap={'32px'} columnGap={'48px'}>
+            <Grid templateColumns='repeat(3, 1fr)' className="grid-responsive" rowGap={'32px'} columnGap={'48px'}>
                 {blogs?.length > 0 && blogs?.map((blog) => <BlogCard key={blog.id} blog={blog} />)}
             </Grid>
             

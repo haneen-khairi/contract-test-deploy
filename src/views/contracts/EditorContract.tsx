@@ -254,20 +254,6 @@ export default function EditorContract({
                         alt={"brand logo"}
                     />
                     <BackButton />
-                    <Text
-                        fontSize={{ sm: "sm", md: "lg", lg: "lg" }}
-                        whiteSpace={"nowrap"}
-                        overflow={"hidden"}
-                        textOverflow={"ellipsis"}
-                        paddingLeft={{ sm: "4px", md: "6px", lg: "6px" }}
-                        width={{ sm: "50%", md: "auto", lg: "auto" }}
-                    >
-                        {document.name}
-                    </Text>
-                    <ContractStatus
-                        docStatus={document.status}
-                        contractID={contractID}
-                    />
                 </Box>
                 <Box
                     className="right-side"

@@ -33,7 +33,7 @@ export default function Page() {
         }
     }
     return <section className='contact'>
-        <Grid templateColumns='repeat(2, 1fr)'>
+        <Grid templateColumns='repeat(2, 1fr)' className='contact__grid'>
             <div className="contact__form">
                 <h4 className="contact__form--header">Get in Touch</h4>
                 <p className="contact__form--paragraph">Whether you have questions, feedback, or partnership proposals, we&apos;re here to listen and assist. Use the form below to reach out to the CaDas team</p>
