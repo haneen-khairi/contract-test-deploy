@@ -85,25 +85,24 @@ export default function PricingView({
           plan: Plan,
           index: Key | null | undefined
         ) => (
-          <PricingDetails onGetCheckoutId={setCheckoutId}  key={index} plan={plan} />
+          <PricingDetails onGetCheckoutId={
+            (checkoutId) => {
+              setCheckoutId(checkoutId)
+              onOpenModal()
+            }
+          }  key={index} plan={plan} />
         )
       ): ""}
-      {checkoutId && <>
-        {/* <iframe
-            src={`https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${checkoutId}`}
-            frameBorder="0"
-            width="100%"
-            height="600"
-          /> */}
-          <Modal onClose={onCloseModal} isOpen={true} isCentered>
+      
+          <Modal onClose={onCloseModal} isOpen={isCreateModalOpen} isCentered>
             <ModalOverlay />
-            <ModalCloseButton />
             <ModalContent borderRadius={"16px"} w={"95%"} maxW={"520px"}>
                 <ModalHeader>
                     <Text fontSize={"18"} fontWeight={"700"}>
                         Payment
                     </Text>
                 </ModalHeader>
+              <ModalCloseButton />
                 <Divider orientation="horizontal" />
                 <form action={`${process.env.NEXT_PUBLIC_DOMAIN}/en/pricing`} className="paymentWidgets" data-brands="AMEX MADA MASTER VISA"></form>
                 <Script src={`${process.env.NEXT_PUBLIC_PAYMENT_API}/v1/paymentWidgets.js?checkoutId=${checkoutId}`}></Script>
@@ -112,8 +111,7 @@ export default function PricingView({
             </ModalContent>
           </Modal>
 
-        </>
-      }
+        
     </Flex>
   );
 }
