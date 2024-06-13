@@ -23,7 +23,10 @@ interface LinkResponse {
         url: string;
         key: string;
     };
+    onClose: () => void;
+    onSuccess: (key: string) => void;
 }
+
 
 export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
     const formRef = useRef<HTMLFormElement>(null);
@@ -32,6 +35,19 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
     const { data: session } = useSession();
     const toast = useToast();
 
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        const formData = new FormData();
+        formData.append("file", selectedFile!);
+        formData.append("access", session?.tokens?.access || "");
+
+        const response: any = await fetch("/api/upload", {
+            method: "POST",
+            body: formData,
+        });
+        const data = await response.json();
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -54,6 +70,7 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
                 duration: 3000,
                 isClosable: false,
             });
+      
 
             if (response.status < 299) {
                 setSelectedFile(null);
@@ -70,6 +87,7 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
                 isClosable: false,
             });
         }
+           
 
         setIsSubmitting(false);
     };
@@ -109,5 +127,6 @@ export default function ImportForm({ onClose, onSuccess }: ImportFormProps) {
                 </ModalFooter>
             </form>
         </>
-    );
+    ); 
+}
 }
