@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { getContractByID } from "@/actions/contracts";
 import CKeditor from "@/components/CKeditor";

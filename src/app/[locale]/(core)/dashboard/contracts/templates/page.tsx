@@ -1,8 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import React, { Suspense, useEffect, useState } from "react";
 import { Box, Divider,Text, Flex, Grid, Modal, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
-
-import dynamic from "next/dynamic";
 import TableLoading from "@/components/common/TableLoading";
 import PlusIcon from "./PlusIcon";
 import ArrowRight from "./ArrowRight";

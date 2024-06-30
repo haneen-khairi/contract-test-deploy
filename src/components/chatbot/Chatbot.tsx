@@ -18,9 +18,9 @@ export const Chatbot = () => {
     const contractId = `${id || ""}`;
 
     const getOptions = (token: string, contractId?: string) => ({
-        apiUrl: "http://134.122.65.184:8888/backend",
+        apiUrl: "https://opencopilot.accordcontract.com/backend",
         initialMessage: "How are the things",
-        token: "batHqgPXYezIrGij",
+        token: "fqK989xWwAJtwgiD",
         defaultOpen: true,
         triggerSelector: "#triggerSelector",
         socketUrl: "http://134.122.65.184:8888",
@@ -48,12 +48,12 @@ export const Chatbot = () => {
 
     const openAiBot = () => {
         // Request permissions here (example: Notification permission)
-        Notification.requestPermission().then(permission => {
-            if (permission === 'granted') {
+        Notification.requestPermission().then((permission) => {
+            if (permission === "granted") {
                 setPermissionGranted(true);
                 loadScript();
             } else {
-                alert('Permission denied');
+                alert("Permission denied");
             }
         });
     };
@@ -66,8 +66,9 @@ export const Chatbot = () => {
                 );
             };
 
-            const script = document.createElement('script');
-            script.src = 'https://unpkg.com/@openchatai/copilot-widget@latest/dist-embed/pilot.js';
+            const script = document.createElement("script");
+            script.src =
+                "https://unpkg.com/@openchatai/copilot-widget@latest/dist-embed/pilot.js";
             script.onload = initAiCoPilot;
             document.body.appendChild(script);
         }
@@ -75,9 +76,7 @@ export const Chatbot = () => {
 
     return (
         <Box display="flex" position="fixed" left="60px" bottom="40px">
-            <Button onClick={openAiBot}>
-                Ask AI
-            </Button>
+            <Button onClick={openAiBot}>Ask AI</Button>
         </Box>
     );
 };

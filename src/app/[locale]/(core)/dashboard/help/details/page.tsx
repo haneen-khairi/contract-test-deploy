@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import LoaderIcon from '@/components/tickets/loaderIcon'
 import { Button, Divider, Flex, Modal, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
