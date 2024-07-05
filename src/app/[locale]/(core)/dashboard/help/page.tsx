@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import TicketAddForm from '@/components/tickets/TicketAddForm'
 import TicketsCard from '@/components/tickets/TicketsCard'

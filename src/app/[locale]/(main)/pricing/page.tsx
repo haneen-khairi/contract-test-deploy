@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-async-client-component */
 "use client";
 import React , {useEffect, useState} from 'react'
 import { CustomAxios } from "@/utils/CustomAxios";

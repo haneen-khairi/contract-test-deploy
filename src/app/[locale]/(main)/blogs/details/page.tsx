@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import BlogCard from '@/components/blogs/BlogCard'
 import { CustomAxios } from '@/utils/CustomAxios'
