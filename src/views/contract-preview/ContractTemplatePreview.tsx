@@ -157,7 +157,7 @@ export default function ContractTemplatePreview({
                             <IconButton
                                 icon={<EditIcon />}
                                 aria-label={"Edit Contract"}
-                                colorScheme="red"
+                                colorScheme="green"
                                 variant="outline"
                                 onClick={() => handleUseTemplate()}
                             />

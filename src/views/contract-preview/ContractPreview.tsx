@@ -180,7 +180,8 @@ export default function ContractPreview({
                         alt={"brand logo"}
                     />
                     <BackButton />
-                    <Text
+                    {!isMobile ? (
+                        <Text
                         fontSize={{ sm: "sm", md: "lg", lg: "lg" }}
                         whiteSpace={"nowrap"}
                         overflow={"hidden"}
@@ -190,6 +191,7 @@ export default function ContractPreview({
                     >
                         {document?.name}
                     </Text>
+                    ): ""}
                     <ContractStatus
                         docStatus={document?.status}
                         contractID={contractID}
@@ -215,7 +217,7 @@ export default function ContractPreview({
                             <IconButton
                                 icon={<EditIcon />}
                                 aria-label={"Edit Contract"}
-                                colorScheme="red"
+                                colorScheme="green"
                                 variant="outline"
                                 onClick={() =>
                                     router.push(`/en/${contractID}/editor`)
