@@ -50,10 +50,10 @@ export default function PricingDetails({
  
     async function subscribeToPlan(planId: any){
         const response = await CustomAxios(`post`, `${process.env.NEXT_PUBLIC_API_KEY}subscription/subscribe`,  {
-            // 'Authorization': `Bearer ${session?.tokens?.access || ""}`
+            'Authorization': `Bearer ${session?.tokens?.access || ""}`
             } , {
                 plan_id: planId,
-                // token: session?.tokens?.access
+                token: session?.tokens?.access
                 })
             console.log("🚀 ~ subscribeToPlan ~ response:", response)
         if(response){
