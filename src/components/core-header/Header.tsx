@@ -71,6 +71,7 @@ export default function Header() {
                 Authorization: `Bearer ${session?.tokens?.access || ""}`,
             }
         );
+        console.log("🚀 ~ getNotification ~ notificationsRes:", notificationsRes)
         setNotifications(notificationsRes.data);
     }
     useEffect(() => {
